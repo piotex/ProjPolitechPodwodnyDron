@@ -36,39 +36,33 @@ char getch() {
 
 int main(int argc, char **argv)
 {
-        std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(0,100,0,100,0,100,1000)); 
+        std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(0,500,0,500,0,500,1000)); 
         api->change_ref_time_ms(0);
 
-        Prostopadloscian p;
+        Prostopadloscian p(100,100,100,250,250,250);
         int a[12];
-        double tab[] = {50,50,50};
-        double obrX[] = {1,0,0};
-        double obrY[] = {0,1,0};
-        double obrZ[] = {0,0,1};
-
-        char znak = 'X';
-
-        p.setPolozenie(Wektor<double,3>(tab));
-        Wektor<double,3> www(tab);
+        int predkosc = 5;
+        
         p.rysuj(api,a);
-
         while(1){
-                double tab2[] = {0,0,0};
-                znak = getch();
+                double tab[] = {0,0,0};
+                double kat[] = {0,0,0};
+                char znak = getch();
                 switch (znak)
                 {
-                        case '1':tab2[0] = 1; break;
-                        case '3':tab2[0] = -1; break;
-                        case '5':tab2[1] = 1; break;
-                        case '2':tab2[1] = -1; break;
-                        case '4':tab2[2] = 1; break;
-                        case '6':tab2[2] = -1; break;
-                        case '7':p.odroc(Wektor<double,3>(obrX)); break;
-                        case '8':p.odroc(Wektor<double,3>(obrY)); break;
-                        case '9':p.odroc(Wektor<double,3>(obrZ)); break;
+                        case '3':tab[0] = predkosc; break;
+                        case '1':tab[0] = -predkosc; break;
+                        case '5':tab[1] = predkosc; break;
+                        case '2':tab[1] = -predkosc; break;
+                        case '6':tab[2] = predkosc; break;
+                        case '4':tab[2] = -predkosc; break;
+                        case '7':kat[0] = predkosc; break;
+                        case '8':kat[1] = predkosc; break;
+                        case '9':kat[2] = predkosc; break;
+                        case 'q':return 0;
                 }  
                 p.usunKsztalt(api,a);
-                p.przesun(tab2);
+                p.przesun(tab,kat);
                 p.rysuj(api,a);
         }
 

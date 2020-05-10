@@ -1,9 +1,13 @@
 #include "Prostopadloscian.hh"
 
 Prostopadloscian::Prostopadloscian(){
-    double d[]={10,10,10};
-    dlugosciBokow  = Wektor<double,3>(d);
+    dlugosciBokow  = Wektor<double,3>{0,0,0};
 }
+Prostopadloscian::Prostopadloscian(double wymX,double wymY,double wymZ,double polX,double polY,double polZ){
+    dlugosciBokow = Wektor<double,3>{wymX,wymY,wymZ};
+    polozenie = Wektor<double,3>{polX,polY,polZ};
+}
+
 Wektor<double,3> obrotX(Wektor<double,3> a,Wektor<double,3> b,double kat){
 
     Wektor<double,3> ret ;//= (mkX * w1)+masPoint;
@@ -28,9 +32,13 @@ Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> b,double kat){
     ret[2]=a[2];
     return ret;
 }
+
+
+//helper - konwertuje
 drawNS::Point3D wektorToPoint( Wektor<double,3> figura){
     return drawNS::Point3D(figura[0],figura[1],figura[2]);
 }
+//laczy kropki 
 void narysuj(std::shared_ptr<drawNS::Draw3DAPI> &api, int* id_ob, Wektor<double,3>* figura ){
     int id =0;
     int polaczenia[12][2] = {
@@ -55,12 +63,8 @@ void narysuj(std::shared_ptr<drawNS::Draw3DAPI> &api, int* id_ob, Wektor<double,
 
         id_ob[id++] = api->draw_line( p1,p2 );
     }
-    
-
 }
-
-int Prostopadloscian::rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api, int* id_ob) const {
-
+void calculatePoints(const Wektor<double,3> polozenie,const Wektor<double,3> dlugosciBokow,const Wektor<double,3> katy, Wektor<double,3>* returnTable){
     double x=polozenie[0];
     double y=polozenie[1];
     double z=polozenie[2];
@@ -69,29 +73,32 @@ int Prostopadloscian::rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api, int* id_ob)
     double by=dlugosciBokow[1];
     double bz=dlugosciBokow[2];
     
-    
-    Wektor<double,3> figura[12];
-    figura[0]=  Wektor<double,3>(x+bx/2,y+by/2,z+bz/2);
-    figura[1]=  Wektor<double,3>(x+bx/2,y+by/2,z-bz/2);
-    figura[2]=  Wektor<double,3>(x+bx/2,y-by/2,z+bz/2);
-    figura[3]=  Wektor<double,3>(x+bx/2,y-by/2,z-bz/2);
+    returnTable[0]=  Wektor<double,3>(x+bx/2,y+by/2,z+bz/2);
+    returnTable[1]=  Wektor<double,3>(x+bx/2,y+by/2,z-bz/2);
+    returnTable[2]=  Wektor<double,3>(x+bx/2,y-by/2,z+bz/2);
+    returnTable[3]=  Wektor<double,3>(x+bx/2,y-by/2,z-bz/2);
 
-    figura[4]=  Wektor<double,3>(x-bx/2,y+by/2,z+bz/2);
-    figura[5]=  Wektor<double,3>(x-bx/2,y+by/2,z-bz/2);
-    figura[6]=  Wektor<double,3>(x-bx/2,y-by/2,z+bz/2);
-    figura[7]=  Wektor<double,3>(x-bx/2,y-by/2,z-bz/2);
-
+    returnTable[4]=  Wektor<double,3>(x-bx/2,y+by/2,z+bz/2);
+    returnTable[5]=  Wektor<double,3>(x-bx/2,y+by/2,z-bz/2);
+    returnTable[6]=  Wektor<double,3>(x-bx/2,y-by/2,z+bz/2);
+    returnTable[7]=  Wektor<double,3>(x-bx/2,y-by/2,z-bz/2);
     for (int i = 0; i < 8; i++)
     {
-        figura[i] = obrotX(figura[i],polozenie,katy[0]);
-        figura[i] = obrotY(figura[i],polozenie,katy[1]);
-        figura[i] = obrotZ(figura[i],polozenie,katy[2]);
+        returnTable[i] = obrotX(returnTable[i],polozenie,katy[0]);
+        returnTable[i] = obrotY(returnTable[i],polozenie,katy[1]);
+        returnTable[i] = obrotZ(returnTable[i],polozenie,katy[2]);
     }
+}
+
+int Prostopadloscian::rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api, int* id_ob) const {
+    Wektor<double,3> figura[8];
+    calculatePoints(polozenie,dlugosciBokow,katy,figura);
     narysuj(api,id_ob,figura);
     return 0;
 }
-int Prostopadloscian::przesun(const Wektor<double,3> &wek) {
+int Prostopadloscian::przesun(const Wektor<double,3> &wek,const Wektor<double,3> &kat) {
     setPolozenie(polozenie+wek);
+    katy+=kat;
     return 1;
 }
 drawNS::Point3D Prostopadloscian::getPolozenie() const {
@@ -103,14 +110,17 @@ void Prostopadloscian::setPolozenie(const Wektor<double,3> &wek) {
         polozenie[i]= wek[i];
     }
 }
+void Prostopadloscian::setDlugoscBokow(const Wektor<double,3> &wek) {
+    for (int i = 0; i < 3; i++)
+    {
+        dlugosciBokow[i]= wek[i];
+    }
+}
 void Prostopadloscian::usunKsztalt(std::shared_ptr<drawNS::Draw3DAPI> &api,const int* a) {
     for (int i = 0; i < ILOSC_SCIAN; i++)
     {
         api->erase_shape(a[i]);
     }
-}
-int Prostopadloscian::odroc(const Wektor<double,3> &kat) {
-    katy += kat;    
 }
 
 

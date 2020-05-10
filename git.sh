@@ -8,7 +8,7 @@
  `echo git add dane.dat`; 
  `echo git add inc/`; 
  `echo git add obj/`; 
- `echo git add test`; 
+ `echo git add src/`; 
  `echo git status`; 
 
 # `echo clear`; 

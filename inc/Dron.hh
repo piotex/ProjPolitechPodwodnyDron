@@ -5,11 +5,9 @@
 class Dron {    
   
   public:           
-    Dron();
-    Dron(double x, double y, double z);
-  double x;    
-  double y;
   double z;
+    // void setDlugoscBokow(const Wektor<double,3> &wek) override;
+
 };
 
 std::istream& operator>>(std::istream &strm, Dron& l);
