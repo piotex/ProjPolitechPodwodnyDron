@@ -3,6 +3,7 @@
 #include "Dron.hh"
 #include "../inc/Wektor.hh"
 #include "Prostopadloscian.hh"
+#include "Plaszczyzna.hh"
 
 #include <unistd.h>
 #include <termios.h>
@@ -41,7 +42,13 @@ int main(int argc, char **argv)
 
         int predkosc = 5;
         Dron p;
-
+        Plaszczyzna pp;
+        Plaszczyzna pp2;
+        pp2.setPolozenie(Wektor<double,3>{0,0,10});
+        pp2.rysuj(api);
+        pp.setPolozenie(Wektor<double,3>{0,0,450});
+        pp.rysuj(api);
+        
         p.rysuj(api);
         while(1){
                 double tab[] = {0,0,0};
@@ -63,7 +70,6 @@ int main(int argc, char **argv)
                 p.przesun(tab);
                 p.obroc(kat);
                 p.rysuj(api);
-                p.old_idk = 0;
         }
 
 

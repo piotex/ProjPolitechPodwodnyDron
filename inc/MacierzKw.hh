@@ -17,7 +17,7 @@ class MacierzKw {
     public:
         MacierzKw();
         MacierzKw(Wektor<_TYP,_ROZMIAR> tab[]);
-    int size = _ROZMIAR;                             //lepsze bylo by protected, ale nie mozna dziedziczyc
+        int size = _ROZMIAR;                             //lepsze bylo by protected, ale nie mozna dziedziczyc
         
         const _TYP wyznacznik(Metoda_Obl_Wyznacznika odw = Sarrus)const;// rozwiniecje laplace'a, gaussa, sarrusa
         const MacierzKw transponuj() const;

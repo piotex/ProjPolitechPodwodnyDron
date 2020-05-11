@@ -15,9 +15,6 @@ Dron::Dron(){
   srobaL.srodekMasy = body.srodekMasy;
   srobaR.srodekMasy = body.srodekMasy;
 }
-// int Dron::rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api) const {
-//     Prostopadloscian::rysuj(api);
-// }
 
 
 int Dron::rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api) const {

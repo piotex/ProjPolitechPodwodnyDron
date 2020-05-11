@@ -3,14 +3,13 @@
 #include<iostream>
 #include <math.h> 
 #include "Figura3D.hh"
-#include "MacierzKw.hh"
+#include "MacierzObrotu.hh"
 #define ILOSC_SCIAN 12
 
 class Prostopadloscian : public Figura3D{    
   protected:
     Wektor<double,3> dlugosciBokow;
   public:
-    mutable int old_idk;
     Wektor<double,3>* srodekMasy;
     Prostopadloscian();
     Prostopadloscian(double wymX,double wymY,double wymZ,double polX,double polY,double polZ);

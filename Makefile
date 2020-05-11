@@ -4,17 +4,17 @@ __start__: workingFile
 
 	./workingFile
 
-workingFile: obj/main.o obj/LiczbaZespolona.o obj/Dron.o obj/Dr3D_gnuplot_api.o obj/Prostopadloscian.o obj/MacierzObrotu.o obj/Wektor.o obj/MacierzKw.o 
+workingFile: obj/main.o obj/LiczbaZespolona.o obj/Dron.o obj/Dr3D_gnuplot_api.o obj/Plaszczyzna.o obj/Prostopadloscian.o obj/MacierzObrotu.o obj/Wektor.o obj/MacierzKw.o 
 	g++ -Wall -pedantic -o workingFile obj/*.o  -lpthread 
 
-obj/main.o: src/main.cpp inc/LiczbaZespolona.hh inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
+obj/main.o: src/main.cpp inc/LiczbaZespolona.hh inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Plaszczyzna.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp	
 
 obj/Prostopadloscian.o: src/Prostopadloscian.cpp inc/Prostopadloscian.hh 
 	g++ ${CPPFLAGS} -o obj/Prostopadloscian.o src/Prostopadloscian.cpp
 
-inc/Prostopadloscian.hh: inc/Figura3D.hh
-	touch inc/Prostopadloscian.hh
+obj/Plaszczyzna.o: src/Plaszczyzna.cpp inc/Plaszczyzna.hh 
+	g++ ${CPPFLAGS} -o obj/Plaszczyzna.o src/Plaszczyzna.cpp
 
 obj/LiczbaZespolona.o: src/LiczbaZespolona.cpp inc/LiczbaZespolona.hh 
 	g++ ${CPPFLAGS} -o obj/LiczbaZespolona.o src/LiczbaZespolona.cpp

@@ -10,7 +10,8 @@ class Figura3D {
     // std::shared_ptr<drawNS::Draw3DAPI> api;
     Wektor<double,3> polozenie;
     Wektor<double,3> katy;
-    void set_old_id(int new_id);
+    mutable int old_idk;
+
   public:  
     // Figura3D(std::shared_ptr<drawNS::Draw3DAPI> &api);
     virtual int rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api) const = 0;         

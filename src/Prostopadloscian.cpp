@@ -47,12 +47,15 @@ void calculatePoints(const Wektor<double,3> srodekMasy,const Wektor<double,3> po
     returnTable[5]=  Wektor<double,3>(x-bx/2,y+by/2,z-bz/2);
     returnTable[6]=  Wektor<double,3>(x-bx/2,y-by/2,z+bz/2);
     returnTable[7]=  Wektor<double,3>(x-bx/2,y-by/2,z-bz/2);
+    MacierzObrotu macierz;
+
     for (int i = 0; i < 8; i++)
     {
         returnTable[i] = obrotX(returnTable[i],srodekMasy,katy[0]);
         returnTable[i] = obrotY(returnTable[i],srodekMasy,katy[1]);
         returnTable[i] = obrotZ(returnTable[i],srodekMasy,katy[2]);
     }
+
 }
 
 Prostopadloscian::Prostopadloscian(){
