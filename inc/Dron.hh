@@ -1,16 +1,21 @@
 #ifndef DRON_HH
 #define DRON_HH
 #include<iostream>
+#include "Prostopadloscian.hh"
 
-class Dron {    
+class Dron : public Prostopadloscian {    
   
   public:           
-  double z;
-    // void setDlugoscBokow(const Wektor<double,3> &wek) override;
+    Dron();
+    Prostopadloscian body;
+    Prostopadloscian srobaL;
+    Prostopadloscian srobaR;
+
+
+    int rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api) const override;         
+    int obroc(const Wektor<double,3> &kat) override;
+    int przesun(const Wektor<double,3> &wek) override;
 
 };
-
-std::istream& operator>>(std::istream &strm, Dron& l);
-std::ostream& operator<<(std::ostream &wyjscie, const Dron &s);
 
 #endif

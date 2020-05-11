@@ -39,11 +39,10 @@ int main(int argc, char **argv)
         std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(0,500,0,500,0,500,1000)); 
         api->change_ref_time_ms(0);
 
-        Prostopadloscian p(100,100,100,250,250,250);
-        int a[12];
         int predkosc = 5;
-        
-        p.rysuj(api,a);
+        Dron p;
+
+        p.rysuj(api);
         while(1){
                 double tab[] = {0,0,0};
                 double kat[] = {0,0,0};
@@ -61,9 +60,10 @@ int main(int argc, char **argv)
                         case '9':kat[2] = predkosc; break;
                         case 'q':return 0;
                 }  
-                p.usunKsztalt(api,a);
-                p.przesun(tab,kat);
-                p.rysuj(api,a);
+                p.przesun(tab);
+                p.obroc(kat);
+                p.rysuj(api);
+                p.old_idk = 0;
         }
 
 
