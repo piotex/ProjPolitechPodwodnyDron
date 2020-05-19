@@ -4,13 +4,23 @@
 #include "Figura3D.hh"
 
 class Plaszczyzna : public Figura3D{
+    protected:
+        int rozmiar = 80;
+        int numer = 8;
     public:
+        /*!
+        * \brief konstruktor ustawiajacy poczatkowe wartosci Plaszczyzna
+        */ 
         Plaszczyzna();
-        int rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api)const override;     
-        int przesun(const Wektor<double,3> &wek) override;     
-        int obroc(const Wektor<double,3> &kat) override;     
-
-        void setPolozenie(const Wektor<double,3> &wek)override;     
+        /*!
+        * \brief konstruktor ustawiajacy poczatkowe wartosci Plaszczyzna
+        * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
+        */ 
+        Plaszczyzna(std::shared_ptr<drawNS::Draw3DAPI> &api,Wektor<double,3> pol);
+        /*!
+        * \brief funkcja sluzaca do tworzenia obrazu w gnuplocie 
+        */ 
+        void rysuj() override;     
 };
 
 #endif

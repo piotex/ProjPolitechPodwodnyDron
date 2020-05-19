@@ -4,22 +4,28 @@
 #include <math.h> 
 #include "Figura3D.hh"
 #include "MacierzObrotu.hh"
-#define ILOSC_SCIAN 12
 
 class Prostopadloscian : public Figura3D{    
   protected:
     Wektor<double,3> dlugosciBokow;
   public:
-    Wektor<double,3>* srodekMasy;
+    /*!
+    * \brief konstruktor ustawiajacy poczatkowe wartosci Prostopadloscian
+    */ 
     Prostopadloscian();
-    Prostopadloscian(double wymX,double wymY,double wymZ,double polX,double polY,double polZ);
-
-    void setPolozenie(const Wektor<double,3> &wek) override;
-    virtual void setDlugoscBokow(const Wektor<double,3> &wek);
-
-    int rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api) const override;         
-    int obroc(const Wektor<double,3> &kat) override;
-    int przesun(const Wektor<double,3> &wek) override;
+    /*!
+    * \brief konstruktor ustawiajacy poczatkowe wartosci Prostopadloscian
+    * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
+    */ 
+    Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> &api, Wektor<double,3> dlB);
+    /*!
+    * \brief funkcja sluzaca do tworzenia obrazu w gnuplocie 
+    */ 
+    void rysuj() override;
+    /*!
+    * \brief funkcja sluzaca do wyliczania punktow skladowych Prostopadloscian
+    */ 
+    virtual void get_wyliczonePunkty(Wektor<double,3> *ret);
 
 };
 

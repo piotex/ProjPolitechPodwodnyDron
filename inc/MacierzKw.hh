@@ -12,7 +12,8 @@ enum Metoda_Obl_Wyznacznika {Sarrus, Laplace, Gauss};
 
 template<class _TYP, int _ROZMIAR>
 class MacierzKw {
-    Wektor<_TYP,_ROZMIAR> tab[_ROZMIAR]; //2. propozycja, zalecana
+    protected:
+        Wektor<_TYP,_ROZMIAR> tab[_ROZMIAR]; //2. propozycja, zalecana
 
     public:
         MacierzKw();

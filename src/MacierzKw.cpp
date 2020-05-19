@@ -168,9 +168,10 @@ void MacierzKw<_TYP,_ROZMIAR>::set_Kolumna(const int numerKolumny, Wektor<_TYP,_
 template<class _TYP, int _ROZMIAR>  
 const MacierzKw<_TYP,_ROZMIAR> MacierzKw<_TYP,_ROZMIAR>::operator*(const MacierzKw & w)const
 {
-    MacierzKw ret;
-    MacierzKw pomocnicza;
-    pomocnicza = w.transponuj();
+    MacierzKw<_TYP,_ROZMIAR> ret;
+    MacierzKw<_TYP,_ROZMIAR> pomocnicza = w;
+    pomocnicza.transponuj();
+
     for (int i=0; i < size; i++)
         for (int j=0; j < size; j++)
             ret[i][j] = tab[i] * pomocnicza[j];

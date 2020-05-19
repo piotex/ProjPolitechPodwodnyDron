@@ -4,20 +4,32 @@ __start__: workingFile
 
 	./workingFile
 
-workingFile: obj/main.o obj/LiczbaZespolona.o obj/Dron.o obj/Dr3D_gnuplot_api.o obj/Plaszczyzna.o obj/Prostopadloscian.o obj/MacierzObrotu.o obj/Wektor.o obj/MacierzKw.o 
+workingFile: obj/main.o obj/LiczbaZespolona.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o obj/Dron.o obj/Dr3D_gnuplot_api.o obj/Plaszczyzna.o obj/Figura3D.o obj/Prostopadloscian.o obj/MacierzObrotu.o obj/Wektor.o obj/MacierzKw.o 
 	g++ -Wall -pedantic -o workingFile obj/*.o  -lpthread 
 
-obj/main.o: src/main.cpp inc/LiczbaZespolona.hh inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Plaszczyzna.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
+obj/main.o: src/main.cpp obj/LiczbaZespolona.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Plaszczyzna.hh inc/Figura3D.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp	
+
+obj/LiczbaZespolona.o: src/LiczbaZespolona.cpp inc/LiczbaZespolona.hh 
+	g++ ${CPPFLAGS} -o obj/LiczbaZespolona.o src/LiczbaZespolona.cpp
 
 obj/Prostopadloscian.o: src/Prostopadloscian.cpp inc/Prostopadloscian.hh 
 	g++ ${CPPFLAGS} -o obj/Prostopadloscian.o src/Prostopadloscian.cpp
 
+obj/Figura3D.o: src/Figura3D.cpp inc/Figura3D.hh 
+	g++ ${CPPFLAGS} -o obj/Figura3D.o src/Figura3D.cpp
+
 obj/Plaszczyzna.o: src/Plaszczyzna.cpp inc/Plaszczyzna.hh 
 	g++ ${CPPFLAGS} -o obj/Plaszczyzna.o src/Plaszczyzna.cpp
 
-obj/LiczbaZespolona.o: src/LiczbaZespolona.cpp inc/LiczbaZespolona.hh 
-	g++ ${CPPFLAGS} -o obj/LiczbaZespolona.o src/LiczbaZespolona.cpp
+obj/Plaszczyzna_Wody.o: src/Plaszczyzna_Wody.cpp inc/Plaszczyzna_Wody.hh 
+	g++ ${CPPFLAGS} -o obj/Plaszczyzna_Wody.o src/Plaszczyzna_Wody.cpp
+
+obj/Graniastoslup.o: src/Graniastoslup.cpp inc/Graniastoslup.hh 
+	g++ ${CPPFLAGS} -o obj/Graniastoslup.o src/Graniastoslup.cpp
+
+obj/Sruba.o: src/Sruba.cpp inc/Sruba.hh 
+	g++ ${CPPFLAGS} -o obj/Sruba.o src/Sruba.cpp
 
 obj/MacierzObrotu.o: src/MacierzObrotu.cpp inc/MacierzObrotu.hh 
 	g++ ${CPPFLAGS} -o obj/MacierzObrotu.o src/MacierzObrotu.cpp

@@ -1,44 +1,22 @@
 #include "Plaszczyzna.hh"
 
 Plaszczyzna::Plaszczyzna(){
-
+  pSrodka = Wektor<double,3>(0,0,0);
 }
-
-int Plaszczyzna::rysuj(std::shared_ptr<drawNS::Draw3DAPI> &api) const{
-
-    int aaaa = 100;
-    // api->erase_shape(old_idk);
-
-    std::cout<< polozenie[2] << "\n\n\n";
-
-    std::vector<std::vector<drawNS::Point3D> > xd;
-    for (int j = 0; j < 10; j++)
+Plaszczyzna::Plaszczyzna(std::shared_ptr<drawNS::Draw3DAPI> &_api,Wektor<double,3> pol){
+  pSrodka = pol;
+  api = _api;
+}
+void Plaszczyzna::rysuj(){
+    std::vector<std::vector<drawNS::Point3D> > macierz;
+    for (int j = 0; j < numer; j++)
     {
       std::vector<drawNS::Point3D> cd;
-      for (int i = 0; i < 10; i++)
+      for (int i = 0; i < numer; i++)
       {
-        cd.push_back(drawNS::Point3D(aaaa*i,aaaa*j,polozenie[2]));
+        cd.push_back(drawNS::Point3D(pSrodka[0]+rozmiar*i,pSrodka[1]+rozmiar*j,pSrodka[2]));
       }
-      xd.push_back(cd);
+      macierz.push_back(cd);
     }
-    old_idk = api->draw_surface(xd,"black");
-    return old_idk;
+    id = api->draw_surface(macierz,"red");
 }
-
-
-int Plaszczyzna::przesun(const Wektor<double,3> &wek) {
-
-}     
-int Plaszczyzna::obroc(const Wektor<double,3> &kat) {
-
-}     
-
-void Plaszczyzna::setPolozenie(const Wektor<double,3> &wek){
-  for (int i = 0; i < 3; i++)
-  {
-    polozenie[i] = wek[i];
-  }
-  
-}     
-
-
