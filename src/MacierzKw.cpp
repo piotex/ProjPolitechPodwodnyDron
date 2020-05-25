@@ -129,9 +129,7 @@ const _TYP MacierzKw<_TYP,_ROZMIAR>::wyznacznik(Metoda_Obl_Wyznacznika odw )cons
                 copy = getMalaMacierz(copy,0);      // wyliczenie wyznacznika po laplacie wzgledem 1 kolumny - jak jest 1 0 0 0 0... to jest dosc prosto
             }
             ret = copy.wyznacznik(Sarrus);     //gdy zostaje nam maczerz trzy x  trzy liczymy po sarusie
-            // std::cout << "\n__________\n"<<copy<<"\n__________\n"<<ret<<" x "<<mnoznikiWyznacznika<<"\n_________\n"<<ret*mnoznikiWyznacznika<<"\n_________\n";
-            // std::cout << "\n__________\n"<<ret<<" x "<<mnoznikiWyznacznika<<" = "<<ret*mnoznikiWyznacznika<<"\n_________\n";
-                ret *= mnoznikiWyznacznika ;
+            ret *= mnoznikiWyznacznika ;
             
             return ret;
         }
@@ -228,3 +226,71 @@ std::istream& operator>> (std::istream &stream, MacierzKw<_TYP,_ROZMIAR>& wyr)
     return stream;
 }
 
+template<>
+const double MacierzKw<double,3>::wyznacznik(Metoda_Obl_Wyznacznika odw )const
+{
+    double ret = 0;
+
+    switch(odw)
+    {
+        case Sarrus:{
+                if (size == 3)
+                {
+                    ret += (*this)[0][0] * (*this)[1][1] * (*this)[2][2] ;
+                    ret += (*this)[1][0] * (*this)[2][1] * (*this)[0][2] ;
+                    ret += (*this)[2][0] * (*this)[0][1] * (*this)[1][2] ;
+
+                    ret -= (*this)[2][0] * (*this)[1][1] * (*this)[0][2] ;
+                    ret -= (*this)[0][0] * (*this)[2][1] * (*this)[1][2] ;
+                    ret -= (*this)[1][0] * (*this)[0][1] * (*this)[2][2] ;
+                    return ret;
+                }
+                if (size == 2)
+                {
+                    ret += (*this)[0][0] * (*this)[1][1] - (*this)[1][0] * (*this)[0][1] ;
+                    return ret;
+                }
+                std::cout<<"Bledny rozmiar macierzy dla obliczania metoda Sarusa!";
+                exit(8);
+        }
+        case Laplace:{
+                std::cout<<"nie zaimplementowano!";
+                exit(8);
+        }
+        case Gauss:{ // taki nie czysty 
+            MacierzKw<double,3> copy = (*this);
+            double mnoznikiWyznacznika(1);
+
+            while (copy.size > 3)
+            {
+                if(abs(copy[0][0]) > COMPARE_VAL){
+                    mnoznikiWyznacznika *= copy[0][0];
+                    copy[0] = copy[0] / copy[0][0];             // 1 w pierwszyn rzedzie
+                }else{
+                    MacierzKw<double,3> copy_copy = copy;
+                    for (int numerNiezerowyPierwszyArgument = 0; numerNiezerowyPierwszyArgument < copy.size; numerNiezerowyPierwszyArgument++)
+                    {
+                        if(abs(copy[numerNiezerowyPierwszyArgument][0]) > COMPARE_VAL){
+                            copy[0] = copy_copy[numerNiezerowyPierwszyArgument];
+                            copy[numerNiezerowyPierwszyArgument] = copy_copy[0];
+                            break;
+                        }    
+                    }
+                    mnoznikiWyznacznika *= copy[0][0] * (-1);
+                    copy[0] = copy[0] / copy[0][0];             // 1 w pierwszyn rzedzie
+                }
+             
+                for (int j = 1; j < copy.size; j++)         // 0 w pierwszej kolumnie
+                {
+                    copy[j] = copy[j] - (copy[0] * copy[j][0]);
+                }    
+                copy = getMalaMacierz(copy,0);      // wyliczenie wyznacznika po laplacie wzgledem 1 kolumny - jak jest 1 0 0 0 0... to jest dosc prosto
+            }
+            ret = copy.wyznacznik(Sarrus);     //gdy zostaje nam maczerz trzy x  trzy liczymy po sarusie
+            ret *= mnoznikiWyznacznika ;
+            
+            return ret;
+        }
+    }
+    return ret;
+}
