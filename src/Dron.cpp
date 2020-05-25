@@ -57,7 +57,6 @@ if (typ==OsZ)
 
 
 void Dron::plyn(double r,double kat){
-  double vWirnika = 5;
   double predkosc = 1 * ( r / abs(r) );
   r= abs(r);
 
@@ -69,13 +68,25 @@ void Dron::plyn(double r,double kat){
     pSrodka = pSrodka + dyst;
     obrot(OsX,kat); //powrot wektora kierunkowego
 
-    g1.obrot(OsY,vWirnika);
-    g1.przesun(dyst);
-    g1.obrot(OsY,-vWirnika);
 
-    g2.obrot(OsY,vWirnika);
+
+    g1.obrot(OsY,300);
+    g1.przesun(dyst);
+
+    g2.obrot(OsY,300);
     g2.przesun(dyst);
-    g2.obrot(OsY,-vWirnika);
+
+    for (int i = 0; i < 3; i++)
+    {
+      g1.obrot(OsY,20);
+      g2.obrot(OsY,20);
+      rysuj();
+
+    }
+    
+    g1.obrot(OsY,-360);
+
+    g2.obrot(OsY,-360);
 
     rysuj();
 
