@@ -3,10 +3,12 @@
 
 Sruba::Sruba(){
   bok = 10;
-  wysokosc=5;
+  wysokosc=10;
 }
-Sruba::Sruba(std::shared_ptr<drawNS::Draw3DAPI> &api, double b, double h){
-//   korekta=Wektor<double,3> (-20,-50,0);
+Sruba::Sruba(std::shared_ptr<drawNS::Draw3DAPI> &_api, double b, double h){
+  api = _api;
+  bok = b;
+  wysokosc=h;
 }
 
 
@@ -15,8 +17,9 @@ void Sruba::przesun(Wektor<double,3> dyst) {
 }  
 
 void Sruba::obrot(TypObrotu typ, double kat){
-    MacierzObrotu mac(typ,kat);
-    orientacja = orientacja * mac;
+
+    MacierzObrotu mac2(typ,kat);
+    orientacja = orientacja * mac2;
 }
 
 

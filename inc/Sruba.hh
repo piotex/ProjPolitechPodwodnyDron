@@ -26,7 +26,6 @@ class Sruba : public Graniastoslup{
     * \brief funkcja sluzaca do obrotu o zadany kat figury
     */ 
     virtual void obrot(TypObrotu typ, double kat);
-
 };
 
 

@@ -14,32 +14,34 @@ Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki){
   g2.set_pSrodka(Wektor<double,3> (20,-45,0));
 }
 
-Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> b,double kat){
+Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> osObroty,double kat){
 
     Wektor<double,3> ret ;//= (mkX * w1)+masPoint;
-    ret[0] = (a[0]-b[0])*cos(kat*PI/180) - (a[1]-b[1])*sin (kat*PI/180) + (b[0]);
-    ret[1] = (a[0]-b[0])*sin(kat*PI/180) + (a[1]-b[1])*cos (kat*PI/180) + (b[1]);
+    ret[0] = (a[0]-osObroty[0])*cos(kat*PI/180) - (a[1]-osObroty[1])*sin (kat*PI/180) + (osObroty[0]);
+    ret[1] = (a[0]-osObroty[0])*sin(kat*PI/180) + (a[1]-osObroty[1])*cos (kat*PI/180) + (osObroty[1]);
     ret[2]=a[2];
     return ret;
 }
 
+
+
+
 void Dron::obrot(TypObrotu typ, double kat){
-  
-  if (typ==OsZ)
+if (typ==OsZ)
   {
     double predkosc = 1 * ( kat / abs(kat) );
     kat= abs(kat);
     while (kat>0)
     {
       MacierzObrotu mac(typ,predkosc);
-      MacierzObrotu macObrSr(OsX,predkosc);
-
 
       orientacja = orientacja * mac;
-      g1.set_pSrodka(obrotZ(g1.pSrodka,pSrodka,-predkosc));
-      g1.obrot(OsX,1);
-      g2.set_pSrodka(obrotZ(g2.pSrodka,pSrodka,-predkosc));
-      g2.obrot(OsX,1);
+
+      g1.pSrodka = obrotZ(g1.pSrodka,pSrodka,-predkosc);
+      g1.obrot(OsZ,predkosc);
+
+      g2.pSrodka = obrotZ(g2.pSrodka,pSrodka,-predkosc);
+      g2.obrot(OsZ,predkosc);
 
       rysuj();
       kat--;
@@ -51,7 +53,11 @@ void Dron::obrot(TypObrotu typ, double kat){
     orientacja = orientacja * mac;
   }
 }
+
+
+
 void Dron::plyn(double r,double kat){
+  double vWirnika = 5;
   double predkosc = 1 * ( r / abs(r) );
   r= abs(r);
 
@@ -63,8 +69,13 @@ void Dron::plyn(double r,double kat){
     pSrodka = pSrodka + dyst;
     obrot(OsX,kat); //powrot wektora kierunkowego
 
+    g1.obrot(OsY,vWirnika);
     g1.przesun(dyst);
+    g1.obrot(OsY,-vWirnika);
+
+    g2.obrot(OsY,vWirnika);
     g2.przesun(dyst);
+    g2.obrot(OsY,-vWirnika);
 
     rysuj();
 

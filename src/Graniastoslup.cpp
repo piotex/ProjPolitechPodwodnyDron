@@ -1,18 +1,10 @@
 #include "Graniastoslup.hh"
 
 Graniastoslup::Graniastoslup(){
-    MacierzObrotu mac(OsY,90);
-    MacierzObrotu mac2(OsX,90);
-    orientacja = orientacja * mac;
-    orientacja = orientacja * mac2;
-    wysokosc = 10;
-    bok = 10;
+    wysokosc = 100;
+    bok = 50;
 }
 Graniastoslup::Graniastoslup(std::shared_ptr<drawNS::Draw3DAPI> &_api, double b, double h){
-    MacierzObrotu mac(OsY,90);
-    MacierzObrotu mac2(OsX,90);
-    orientacja = orientacja * mac;
-    orientacja = orientacja * mac2;
     api = _api;
     bok = b;
     wysokosc = h;
@@ -29,30 +21,30 @@ void Graniastoslup::get_wyliczonePunkty(Wektor<double,3> *ret){
     //powoduje ze sroba jest w tym samym kierunku co dron
 
 
-    Wektor<double,3> y(h,0,0);
-    Wektor<double,3> x(0,_x,0);
-    Wektor<double,3> x2(0,_x2,0);
-    Wektor<double,3> bokZ(0,0,wysokosc);
+    Wektor<double,3> z(0,0,h);
+    Wektor<double,3> x(_x,0,0);
+    Wektor<double,3> x2(_x2,0,0);
+    Wektor<double,3> dlugosc(0,wysokosc/2,0);
 
-    get_zorientowanyWektor(y);
+    get_zorientowanyWektor(z);
     get_zorientowanyWektor(x);
     get_zorientowanyWektor(x2);
-    get_zorientowanyWektor(bokZ);
+    get_zorientowanyWektor(dlugosc);
     
     //ryzuje wzgledem srodka 
-    ret[0] = pSrodka + bokZ + y + x2;
-    ret[1] = pSrodka + bokZ + x ;
-    ret[2] = pSrodka + bokZ - y + x2;
-    ret[3] = pSrodka + bokZ - y - x2;
-    ret[4] = pSrodka + bokZ - x;
-    ret[5] = pSrodka + bokZ + y - x2;
+    ret[0] = pSrodka + dlugosc + z + x2;
+    ret[1] = pSrodka + dlugosc + z - x2;
+    ret[2] = pSrodka + dlugosc - x;
+    ret[3] = pSrodka + dlugosc - z - x2;
+    ret[4] = pSrodka + dlugosc - z + x2;
+    ret[5] = pSrodka + dlugosc + x;
 
-    ret[6] = pSrodka - bokZ + y + x2;
-    ret[7] = pSrodka - bokZ + x ;
-    ret[8] = pSrodka - bokZ - y + x2;
-    ret[9] = pSrodka - bokZ - y - x2;
-    ret[10] = pSrodka - bokZ - x;
-    ret[11] = pSrodka - bokZ + y - x2;
+    ret[6] = pSrodka - dlugosc + z + x2;
+    ret[7] = pSrodka - dlugosc + z - x2;
+    ret[8] = pSrodka - dlugosc - x;
+    ret[9] = pSrodka - dlugosc - z - x2;
+    ret[10] = pSrodka - dlugosc - z + x2;
+    ret[11] = pSrodka - dlugosc + x;
 
     
 }

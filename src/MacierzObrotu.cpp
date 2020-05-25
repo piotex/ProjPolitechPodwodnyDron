@@ -11,8 +11,8 @@ MacierzObrotu::MacierzObrotu(){
 MacierzObrotu::MacierzObrotu(const MacierzKw<double,3> &mac){
     if(abs(tab[0] * tab[1]) > COMPARE_VAL ||  abs(tab[1] * tab[2]) > COMPARE_VAL  ||  abs(tab[0] * tab[2]) > COMPARE_VAL ) //warunek iloczynu skalarnego
         throw std::runtime_error("BLAD - macierz nie jest ortagonalna");
-    // if(abs((*this).wyznacznik() - 1) > COMPARE_VAL)
-        // throw std::runtime_error("BLAD - macierz nie jest ortagonalna - wyznacznik");
+    if(abs((*this).wyznacznik() - 1) > COMPARE_VAL)
+        throw std::runtime_error("BLAD - macierz nie jest ortagonalna - wyznacznik");
 }
 MacierzObrotu::MacierzObrotu(TypObrotu typ, double kat){
     kat = kat * PI / 180;
