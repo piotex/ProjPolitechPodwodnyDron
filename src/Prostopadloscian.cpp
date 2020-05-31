@@ -56,3 +56,6 @@ void Prostopadloscian::rysuj() {
 }
 
 
+bool Prostopadloscian::czy_kolizja(InterfejsDron dron){
+
+}

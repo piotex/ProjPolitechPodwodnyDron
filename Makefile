@@ -4,14 +4,20 @@ __start__: workingFile
 
 	./workingFile
 
-workingFile: obj/main.o obj/LiczbaZespolona.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o obj/Dron.o obj/Dr3D_gnuplot_api.o obj/Plaszczyzna.o obj/Figura3D.o obj/Prostopadloscian.o obj/MacierzObrotu.o obj/Wektor.o obj/MacierzKw.o 
+workingFile: obj/main.o obj/LiczbaZespolona.o obj/Przeszkoda.o obj/PrzeszkodaProstopadloscian.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o obj/Dron.o obj/Dr3D_gnuplot_api.o obj/Plaszczyzna.o obj/Figura3D.o obj/Prostopadloscian.o obj/MacierzObrotu.o obj/Wektor.o obj/MacierzKw.o 
 	g++ -Wall -pedantic -o workingFile obj/*.o  -lpthread 
 
-obj/main.o: src/main.cpp obj/LiczbaZespolona.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Plaszczyzna.hh inc/Figura3D.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
+obj/main.o: src/main.cpp obj/LiczbaZespolona.o obj/Przeszkoda.o obj/PrzeszkodaProstopadloscian.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Plaszczyzna.hh inc/Figura3D.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp	
 
 obj/LiczbaZespolona.o: src/LiczbaZespolona.cpp inc/LiczbaZespolona.hh 
 	g++ ${CPPFLAGS} -o obj/LiczbaZespolona.o src/LiczbaZespolona.cpp
+
+obj/Przeszkoda.o: src/Przeszkoda.cpp inc/Przeszkoda.hh 
+	g++ ${CPPFLAGS} -o obj/Przeszkoda.o src/Przeszkoda.cpp
+
+obj/PrzeszkodaProstopadloscian.o: src/PrzeszkodaProstopadloscian.cpp inc/PrzeszkodaProstopadloscian.hh 
+	g++ ${CPPFLAGS} -o obj/PrzeszkodaProstopadloscian.o src/PrzeszkodaProstopadloscian.cpp
 
 obj/Prostopadloscian.o: src/Prostopadloscian.cpp inc/Prostopadloscian.hh 
 	g++ ${CPPFLAGS} -o obj/Prostopadloscian.o src/Prostopadloscian.cpp

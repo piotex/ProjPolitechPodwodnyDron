@@ -2,8 +2,10 @@
 
 
 Sruba::Sruba(){
-  bok = 10;
-  wysokosc=10;
+  // int dana = 50;// do testow czy sie kreca
+  int dana = 10;
+  bok = dana;
+  wysokosc=dana;
 }
 Sruba::Sruba(std::shared_ptr<drawNS::Draw3DAPI> &_api, double b, double h){
   api = _api;

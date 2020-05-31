@@ -10,6 +10,7 @@
  `echo git add obj/`; 
  `echo git add src/`; 
  `echo git status`; 
+ `echo git commit -m "need object rewrite"`; 
 
 # `echo clear`; 
 

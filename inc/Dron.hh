@@ -3,11 +3,16 @@
 #include<iostream>
 #include "Sruba.hh"
 #include "Prostopadloscian.hh"
+#include "InterfejsDron.hh"
 
 /*!
 * \brief Dron - klasa reprezentujaca drona
 */
-class Dron : public Prostopadloscian {    
+class Dron : public Prostopadloscian, public InterfejsDron {   
+    /*!
+    * \brief skok drona
+    */
+    double predkosc; 
     /*!
     * \brief g1 - reprezentuje jeden z wirnikow drona
     */
