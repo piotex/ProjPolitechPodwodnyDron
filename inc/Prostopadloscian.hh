@@ -5,7 +5,7 @@
 #include "Przeszkoda.hh"
 #include "MacierzObrotu.hh"
 
-class Prostopadloscian : public Figura3D, public Przeszkoda{    
+class Prostopadloscian : public Figura3D{    
   protected:
     Wektor<double,3> dlugosciBokow;
   public:
@@ -26,11 +26,7 @@ class Prostopadloscian : public Figura3D, public Przeszkoda{
     * \brief funkcja sluzaca do wyliczania punktow skladowych Prostopadloscian
     */ 
     virtual void get_wyliczonePunkty(Wektor<double,3> *ret);
-    /*!
-    * \brief funkcja sluzaca do wykrywania kolizju
-    * \param dron - instancja potrzebna do namierzenia punktow obiektu  
-    */ 
-    bool czy_kolizja(InterfejsDron dron) override; 
+
 };
 
 #endif

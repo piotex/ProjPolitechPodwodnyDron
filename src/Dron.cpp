@@ -1,6 +1,8 @@
 #include "Dron.hh"
 #include "Graniastoslup.hh"
 #include "Sruba.hh"
+#include "PrzeszkodaProstopadloscian.hh"
+#include "InterfejsDron.hh"
 
 Dron::Dron(){
   predkosc = 5;
@@ -104,6 +106,7 @@ void Dron::rysuj(){
   Prostopadloscian::rysuj();
   g1.rysuj();
   g2.rysuj();
+
 }
 
 

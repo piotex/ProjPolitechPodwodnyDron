@@ -2,8 +2,9 @@
 #define PRZESZKODAPROSTOPADLOSCIAN_HH
 
 #include "Przeszkoda.hh"
+#include "Prostopadloscian.hh"
 
-class PrzeszkodaProstopadloscian : public Przeszkoda {      
+class PrzeszkodaProstopadloscian : public Przeszkoda , public Prostopadloscian {      
   protected:
   public:
     /*!
@@ -14,12 +15,12 @@ class PrzeszkodaProstopadloscian : public Przeszkoda {
     * \brief konstruktor ustawiajacy poczatkowe wartosci PrzeszkodaProstopadloscian
     * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
     */ 
-    PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::Draw3DAPI> &api);
+    PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> dlB);
     /*!
     * \brief metoda - sprawdza kolizje
     * \param dron - instancja klasy dron przekazana ponieważ zawiera wszystkie punkty drona potrzebne do wykrycia kolizji
     */ 
-    bool czy_kolizja(InterfejsDron dron) override; 
+    // bool czy_kolizja(InterfejsDron dron) override; 
 };
 
 

@@ -32,22 +32,23 @@ class Dron : public Prostopadloscian, public InterfejsDron {
     * \param boki - Wektor<double,3> reprezentujacy boki drona
     */  
     Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki);
+
+    /*!
+    * \brief rysuj() - funkcja sluzaca rysowania drona
+    */ 
+    void rysuj() override;
     /*!
     * \brief obrot() - funkcja sluzaca do obrotu drona wzgledem zadanej osi
     * \param typ - typ osi obrotu
     * \param kat - kat o jaki ma zostac wykonany obrot 
     */ 
-    virtual void obrot(TypObrotu typ, double kat);
+    void obrot(TypObrotu typ, double kat) override;
     /*!
     * \brief plyn() - funkcja sluzaca do zmiany polozenia drona
     * \param dyst - dystans jaki ma przebyc dron
     * \param kat - kat pod ktorym dron bedzie sie poruszal 
     */ 
-    virtual void plyn(double dyst,double kat);
-    /*!
-    * \brief rysuj() - funkcja sluzaca rysowania drona
-    */ 
-    void rysuj() override;
+    void plyn(double dyst,double kat) override;
  
 };
 
