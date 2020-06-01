@@ -4,6 +4,7 @@
 #include "MacierzObrotu.hh"
 
 class InterfejsDron {    
+    public:
      /*!
     * \brief obrot() - funkcja sluzaca do obrotu drona wzgledem zadanej osi
     * \param typ - typ osi obrotu

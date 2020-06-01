@@ -37,9 +37,17 @@ FactoryPrzeszkody::FactoryPrzeszkody(std::shared_ptr<drawNS::Draw3DAPI> &_api){
 
 void FactoryPrzeszkody::rysuj(){
 
-    for (int i = 0; i < dic1.size(); i++)
+    for (unsigned int i = 0; i < dic1.size(); i++)
     {
         dic1[i].rysuj();
     }
     
+}
+bool FactoryPrzeszkody::wystapilaKolizja(InterfejsDron* dron){
+    for (unsigned int i = 0; i < dic1.size(); i++)
+    {
+        if (dic1[i].czy_kolizja(dron))
+            return true;
+    }
+    return false;    
 }

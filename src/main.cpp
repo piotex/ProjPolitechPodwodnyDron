@@ -57,12 +57,20 @@ int main(int argc, char **argv)
                                 std::cin >> r;
                                 std::cout<<kat<<"  "<<r;
                                 dron.plyn(r,kat);
+                                if(fp.wystapilaKolizja(&dron)){
+                                        std::cout << "Wystapila kolizja.\n" ;
+                                        exit(1);
+                                }
                                 break;
                         }
                         case 'o':{
                                 std::cout << "Podaj wartosc kata obrotu w stopniach.\n" ;
                                 std::cin >> kat;
                                 dron.obrot(OsZ,kat);
+                                if(fp.wystapilaKolizja(&dron)){
+                                        std::cout << "Wystapila kolizja.\n" ;
+                                        exit(1);
+                                }
                                 break;
                         }
                         case 'm':{
