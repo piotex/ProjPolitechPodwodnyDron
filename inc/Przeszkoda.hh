@@ -11,7 +11,7 @@ class Przeszkoda {       //czy moze dziedziczyc po Figura3D ???
     * \brief abstrakcyjna metoda - docelowo sprawdza kolizje
     * \param dron - instancja klasy dron przekazana ponieważ zawiera wszystkie punkty drona potrzebne do wykrycia kolizji
     */ 
-    // virtual bool czy_kolizja(InterfejsDron dron) = 0; 
+    virtual bool czy_kolizja(InterfejsDron* dron) = 0; 
 };
 
 

@@ -16,6 +16,9 @@ class PrzeszkodaProstopadloscian : public Przeszkoda , public Prostopadloscian {
     * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
     */ 
     PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> dlB);
+
+    bool czy_kolizja(InterfejsDron* dron) override; 
+
 };
 
 

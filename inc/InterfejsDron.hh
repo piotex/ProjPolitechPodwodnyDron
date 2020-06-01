@@ -1,8 +1,7 @@
 #ifndef INTERDRON_HH
 #define INTERDRON_HH
 #include<iostream>
-#include "Sruba.hh"
-#include "Prostopadloscian.hh"
+#include "MacierzObrotu.hh"
 
 class InterfejsDron {    
      /*!

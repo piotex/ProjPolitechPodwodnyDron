@@ -9,5 +9,6 @@ PrzeszkodaPrent::PrzeszkodaPrent(std::shared_ptr<drawNS::Draw3DAPI> &_api, doubl
     dlugosciBokow = Wektor<double,3>(r,h,r);
 }
 
+bool PrzeszkodaPrent::czy_kolizja(InterfejsDron* dron){
 
-
+}

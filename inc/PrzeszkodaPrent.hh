@@ -15,6 +15,9 @@ class PrzeszkodaPrent : public PrzeszkodaProstopadloscian {
     * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
     */ 
     PrzeszkodaPrent(std::shared_ptr<drawNS::Draw3DAPI> &_api, double promien, double dlugosc);
+
+    bool czy_kolizja(InterfejsDron* dron) override; 
+
 };
 
 

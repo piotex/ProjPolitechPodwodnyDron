@@ -15,9 +15,9 @@ PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::D
     dlugosciBokow = dlB;
 }
 
-// bool PrzeszkodaProstopadloscian::czy_kolizja(InterfejsDron dron){
-// 
-// }
+bool PrzeszkodaProstopadloscian::czy_kolizja(InterfejsDron* dron){
+
+}
 
 
 
