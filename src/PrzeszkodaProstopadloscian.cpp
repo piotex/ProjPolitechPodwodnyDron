@@ -1,4 +1,5 @@
 #include "PrzeszkodaProstopadloscian.hh"
+#include "Dron.hh"
 
 
 PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(){
@@ -16,6 +17,9 @@ PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::D
 }
 
 bool PrzeszkodaProstopadloscian::czy_kolizja(InterfejsDron* dron){
+    Wektor<double,3> tab[8];
+    Wektor<double,3> tab_dron[8];
+    get_wyliczonePunkty(tab);
 
 }
 

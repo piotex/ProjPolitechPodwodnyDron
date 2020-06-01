@@ -4,7 +4,7 @@
 #include "Przeszkoda.hh"
 #include "Prostopadloscian.hh"
 
-class PrzeszkodaProstopadloscian : public Przeszkoda , public Prostopadloscian {      
+class PrzeszkodaProstopadloscian : public Przeszkoda ,public Prostopadloscian {      
   protected:
   public:
     /*!

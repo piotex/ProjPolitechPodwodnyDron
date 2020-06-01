@@ -10,6 +10,9 @@ class FactoryPrzeszkody {
         FactoryPrzeszkody(std::shared_ptr<drawNS::Draw3DAPI> &api);
         vector<PrzeszkodaProstopadloscian> dic1;
         vector<PrzeszkodaPrent> dic2;
+
+        vector<Przeszkoda> dic;
+
         std::shared_ptr<drawNS::Draw3DAPI> api;
         void rysuj();
 };

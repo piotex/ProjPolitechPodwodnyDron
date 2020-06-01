@@ -16,6 +16,9 @@ class InterfejsDron {
     * \param kat - kat pod ktorym dron bedzie sie poruszal 
     */ 
     virtual void plyn(double dyst,double kat)=0;
+
+    virtual Wektor<double,3> get_srodek_masyDrona()=0;
+    virtual Wektor<double,3> get_wymiary_Drona()=0;
 };
 
 #endif

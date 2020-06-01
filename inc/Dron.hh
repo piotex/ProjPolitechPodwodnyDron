@@ -9,6 +9,7 @@
 * \brief Dron - klasa reprezentujaca drona
 */
 class Dron : public Prostopadloscian, public InterfejsDron {   
+  protected:
     /*!
     * \brief skok drona
     */
@@ -50,6 +51,9 @@ class Dron : public Prostopadloscian, public InterfejsDron {
     */ 
     void plyn(double dyst,double kat) override;
  
+    Wektor<double,3> get_srodek_masyDrona() override;
+    Wektor<double,3> get_wymiary_Drona() override;
+
 };
 
 #endif

@@ -14,8 +14,8 @@ Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki){
   dlugosciBokow = boki;
   g1.set_api(_api);
   g2.set_api(_api);
-  g1.set_pSrodka(Wektor<double,3> (-20,-45,0));
-  g2.set_pSrodka(Wektor<double,3> (20,-45,0));
+  g1.set_pSrodka(Wektor<double,3> (-25,-45,0));
+  g2.set_pSrodka(Wektor<double,3> (25,-45,0));
 }
 
 Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> osObroty,double kat){
@@ -103,11 +103,38 @@ void Dron::plyn(double r,double kat){
 }
 
 void Dron::rysuj(){
+  // Prostopadloscian pp(api,Wektor<double,3>(10,10,10));
+  // pp.pSrodka = get_srodek_masyDrona();
+  // pp.dlugosciBokow = get_wymiary_Drona();
+  // pp.rysuj();
+
+  // std::cout << pp.pSrodka<<"\n\n"<<pp.dlugosciBokow<<"\n\n";
+
   Prostopadloscian::rysuj();
   g1.rysuj();
   g2.rysuj();
 
 }
 
+Wektor<double,3> Dron::get_srodek_masyDrona(){
+    Wektor<double,3> ret;
+    ret[0] = pSrodka[0];
+    ret[1] = pSrodka[1] - g1.wysokosc/2;
+    ret[2] = pSrodka[2] ;
+    return ret;
+}
 
+Wektor<double,3> Dron::get_wymiary_Drona(){
+    Wektor<double,3> ret;
+    ret[0] = dlugosciBokow[0] + g1.bok;
+    ret[1] = dlugosciBokow[1] + g1.wysokosc;
+    if (dlugosciBokow[1] < (g1.bok*sqrt(3)/2*2))
+    {
+      ret[2] = dlugosciBokow[2] + ( (g1.bok*sqrt(3)/2*2) - dlugosciBokow[1]  );
+    }
+    else{
+      ret[2] = dlugosciBokow[2] ;
+    }
+    return ret;
+}
 

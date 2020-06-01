@@ -23,13 +23,16 @@ FactoryPrzeszkody::FactoryPrzeszkody(std::shared_ptr<drawNS::Draw3DAPI> &_api){
     PrzeszkodaPrent p5(api,2,150);
     PrzeszkodaPrent p6(api,2,30);
 
-    p4.set_pSrodka(Wektor<double,3>(40,-10,-140));
-    p5.set_pSrodka(Wektor<double,3>(-40,100,-140));
-    p6.set_pSrodka(Wektor<double,3>(90,-100,100));
+    p4.set_pSrodka(Wektor<double,3>(140,-10, 100));
+    p5.set_pSrodka(Wektor<double,3>(140,-10, 140));
+    p6.set_pSrodka(Wektor<double,3>(140,-10, 180));
 
     dic1.push_back(p4);
     dic1.push_back(p5);
     dic1.push_back(p6);
+
+    // tak to powinno wygladac dla wszystkich pX ale sypie bledem...
+    // dic.push_back(p1);
 }
 
 void FactoryPrzeszkody::rysuj(){

@@ -2,13 +2,14 @@
 #define Prostopadloscian_HH
 #include<iostream>
 #include <math.h> 
-#include "Przeszkoda.hh"
+#include "Figura3D.hh"
 #include "MacierzObrotu.hh"
 
 class Prostopadloscian : public Figura3D{    
   protected:
-    Wektor<double,3> dlugosciBokow;
   public:
+    Wektor<double,3> dlugosciBokow;
+
     /*!
     * \brief konstruktor ustawiajacy poczatkowe wartosci Prostopadloscian
     */ 
