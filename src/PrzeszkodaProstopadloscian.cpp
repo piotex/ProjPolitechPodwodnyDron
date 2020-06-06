@@ -17,12 +17,12 @@ PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::D
 }
 
 bool PrzeszkodaProstopadloscian::czy_kolizja(InterfejsDron* dron){
-    Wektor<double,3> w1 = (*dron).get_srodek_masyDrona();
-    Wektor<double,3> w2 = pSrodka;
-    if (w1 == w2)
-    {
-        return true;
-    }
+    // Wektor<double,3> w1 = (*dron).get_srodek_masyDrona();
+    // Wektor<double,3> w2 = pSrodka;
+    // if (w1 == w2)
+    // {
+    //     // return true;
+    // }
     return false;
     
 }

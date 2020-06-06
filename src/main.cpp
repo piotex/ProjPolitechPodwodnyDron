@@ -75,6 +75,25 @@ int main(int argc, char **argv)
                                 std::cout << "Koniec programu\n\n" ;
                                 exit(1);
                                 break;
+                        }case 'q':{
+                                int _id_doUsuniecia = 0;
+                                vector<Wektor<double,3>> punkty;
+                                dron.get_punktyKrytyczne(punkty);
+                                if(_id_doUsuniecia != 0)
+                                api->erase_shape(_id_doUsuniecia);
+                                vector<vector<Point3D>> prost = vector<vector<Point3D>> {{
+                                                                drawNS::Point3D(punkty[0][0],punkty[0][1],punkty[0][2]), 
+                                                                drawNS::Point3D(punkty[1][0],punkty[1][1],punkty[1][2]), 
+                                                                drawNS::Point3D(punkty[2][0],punkty[2][1],punkty[2][2]), 
+                                                                drawNS::Point3D(punkty[3][0],punkty[3][1],punkty[3][2])
+                                                                },{
+                                                                drawNS::Point3D(punkty[4][0],punkty[4][1],punkty[4][2]), 
+                                                                drawNS::Point3D(punkty[5][0],punkty[5][1],punkty[5][2]), 
+                                                                drawNS::Point3D(punkty[6][0],punkty[6][1],punkty[6][2]), 
+                                                                drawNS::Point3D(punkty[7][0],punkty[7][1],punkty[7][2])
+                                                                }};
+                                _id_doUsuniecia = api->draw_polyhedron(prost,"red");
+                                break;
                         }
                 }
         }

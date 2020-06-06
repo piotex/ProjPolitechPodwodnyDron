@@ -11,6 +11,7 @@ class PrzeszkodaPrent : public Przeszkoda ,public Figura3D {
     * \brief pole reprezentujace dlugosc preta
     */ 
     double dlugosc;
+    TypObrotu os;
     /*!
     * \brief konstruktor ustawiajacy poczatkowe wartosci PrzeszkodaProstopadloscian
     */ 
@@ -19,7 +20,7 @@ class PrzeszkodaPrent : public Przeszkoda ,public Figura3D {
     * \brief konstruktor ustawiajacy poczatkowe wartosci PrzeszkodaProstopadloscian
     * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
     */ 
-    PrzeszkodaPrent(std::shared_ptr<drawNS::Draw3DAPI> &_api, double dlB, Wektor<double,3> pol);
+    PrzeszkodaPrent(std::shared_ptr<drawNS::Draw3DAPI> &_api, double dlB, Wektor<double,3> pol, TypObrotu os = OsX);
 
     bool czy_kolizja(InterfejsDron* dron) override; 
     /*!

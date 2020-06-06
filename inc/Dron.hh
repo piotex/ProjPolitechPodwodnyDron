@@ -49,13 +49,14 @@ class Dron : public Prostopadloscian, public InterfejsDron {
     * \param typ - typ osi obrotu
     * \param kat - kat o jaki ma zostac wykonany obrot 
     */ 
-    void obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp);
+    int obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp);
     /*!
     * \brief plyn() - funkcja sluzaca do zmiany polozenia drona
     * \param dyst - dystans jaki ma przebyc dron
     * \param kat - kat pod ktorym dron bedzie sie poruszal 
     */ 
-    void plyn(double dyst,double kat,vector<std::shared_ptr<Przeszkoda>> fp);
+    int plyn(double dyst,double kat,vector<std::shared_ptr<Przeszkoda>> fp);
 };
 
 #endif
+
