@@ -8,13 +8,21 @@
 
 template<class TYP, int _ROZMIAR>
 class Wektor {
-  TYP tab[_ROZMIAR];
-  int size=_ROZMIAR;
+    TYP tab[_ROZMIAR];
+    int size=_ROZMIAR;
 
+    
   public: 
     Wektor();
     Wektor(TYP tablica[]);
     Wektor(TYP x, TYP y, TYP z);
+    ~Wektor();
+
+    static unsigned long ile_istnieje;
+    static unsigned long ile_utworzono;
+
+    static unsigned long zwroc_ile_istn();
+    static unsigned long zwroc_ile_utw();
 
     const TYP & operator[] (int index) const;
     TYP & operator[] (int index);
@@ -40,5 +48,10 @@ template<class TYP, int _ROZMIAR>
 std::istream & operator>>(std::istream & strm,Wektor<TYP,_ROZMIAR> & W);
 template<class TYP, int _ROZMIAR>
 Wektor<TYP,_ROZMIAR> operator *(TYP l, Wektor<TYP,_ROZMIAR> W2); 
+
+template<class TYP, int _ROZMIAR>
+unsigned long Wektor<TYP,_ROZMIAR>::ile_istnieje = 0;
+template<class TYP, int _ROZMIAR>
+unsigned long Wektor<TYP,_ROZMIAR>::ile_utworzono = 0;
 
 #endif

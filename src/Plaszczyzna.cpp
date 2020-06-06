@@ -6,6 +6,7 @@ Plaszczyzna::Plaszczyzna(){
 Plaszczyzna::Plaszczyzna(std::shared_ptr<drawNS::Draw3DAPI> &_api,Wektor<double,3> pol){
   pSrodka = pol;
   api = _api;
+  rysuj();
 }
 void Plaszczyzna::rysuj(){
     std::vector<std::vector<drawNS::Point3D> > macierz;
@@ -19,4 +20,19 @@ void Plaszczyzna::rysuj(){
       macierz.push_back(cd);
     }
     id = api->draw_surface(macierz,"red");
+}
+
+bool Plaszczyzna::czy_kolizja(InterfejsDron* dron){
+    vector<Wektor<double,3>> punkty;
+      dron->get_punktyKrytyczne(punkty);
+
+      bool przeszedl = false;
+
+      for (int i = 0; i < 8; i++)
+      {
+          if(punkty[i][2] < pSrodka[2]){
+              przeszedl = true;
+          }
+      }
+      return przeszedl;
 }

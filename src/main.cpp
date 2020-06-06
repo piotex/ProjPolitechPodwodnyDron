@@ -27,22 +27,25 @@ int main(int argc, char **argv)
 
         //doxygen info
         //https://www.youtube.com/watch?v=KPN1y_vstjY
-
+        Wektor<double,3>::ile_istnieje = 0;
+        Wektor<double,3>::ile_utworzono = 0;
 
         std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-200,200,-200,200,-200,400,1000)); 
         api->change_ref_time_ms(0);
-
+                
         FactoryPrzeszkody fp(api);
         vector<std::shared_ptr<Przeszkoda>> przeszkody;
         fp.get_kolekcja(przeszkody);
 
-        Dron dron(api,Wektor<double,3>(50,80,20));
-        dron.rysuj();
+        std::shared_ptr<Dron> dron1(new Dron(api,Wektor<double,3>(50,80,20)));
+        std::shared_ptr<Dron> dron2(new Dron(api,Wektor<double,3>(50,80,20)));
+        std::shared_ptr<Dron> dron3(new Dron(api,Wektor<double,3>(50,80,20)));
+        dron2->plyn(150,-45,przeszkody);
+        dron3->plyn(150,45,przeszkody);
 
-        Plaszczyzna_Wody woda(api,Wektor<double,3>(-300,-300,380));
-        woda.rysuj();
-        Plaszczyzna dno(api,Wektor<double,3>(-300,-300,-180));
-        dno.rysuj();
+        przeszkody.push_back(dron1);
+        przeszkody.push_back(dron2);
+        przeszkody.push_back(dron3);
 
         std::cout << "r - zadaj ruch na wprost\no - zadaj zmiane orientacji\nm - wyswietl menu\n\nk - koniec dzialania programu\n\n";
 
@@ -58,13 +61,13 @@ int main(int argc, char **argv)
                                 std::cout << "Podaj wartosc odleglosci, na ktora ma sie przemiescic dron.\n" ;
                                 std::cin >> r;
                                 std::cout<<kat<<"  "<<r;
-                                dron.plyn(r,kat,przeszkody);
+                                dron1->plyn(r,kat,przeszkody);
                                 break;
                         }
                         case 'o':{
                                 std::cout << "Podaj wartosc kata obrotu w stopniach.\n" ;
                                 std::cin >> kat;
-                                dron.obrot(OsZ,kat,przeszkody);
+                                dron1->obrot(OsZ,kat,przeszkody);
                                 break;
                         }
                         case 'm':{
@@ -78,7 +81,7 @@ int main(int argc, char **argv)
                         }case 'z':{
                                 int _id_doUsuniecia = 0;
                                 vector<Wektor<double,3>> punkty;
-                                dron.get_punktyKrytyczne(punkty);
+                                dron1->get_punktyKrytyczne(punkty);
                                 if(_id_doUsuniecia != 0)
                                 api->erase_shape(_id_doUsuniecia);
                                 vector<vector<Point3D>> prost = vector<vector<Point3D>> {{
@@ -96,6 +99,8 @@ int main(int argc, char **argv)
                                 break;
                         }
                 }
+                std::cout << "\n--------------------------------\nAktualna ilosc obiektow Wektor3D: "<< Wektor<double,3>::zwroc_ile_istn() <<"\n" ;
+                std::cout << "\nLaczna ilosc obiektow Wektor3D: "<< Wektor<double,3>::zwroc_ile_utw() <<"\n----------------------------------\n" ;
         }
 
 

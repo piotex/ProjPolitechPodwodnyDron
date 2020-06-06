@@ -8,12 +8,16 @@ Wektor<TYP,_ROZMIAR>::Wektor()
     {
         (*this)[i] = 0;
     }
+    ile_istnieje++;
+    ile_utworzono++;
 }
 template<class TYP, int _ROZMIAR>
 Wektor<TYP,_ROZMIAR>::Wektor(TYP *tab)
 {
   for (int i=0; i<size; i++)
     (*this)[i] = tab[i];
+    ile_istnieje++;
+    ile_utworzono++;
 }
 template<class TYP, int _ROZMIAR>
 Wektor<TYP,_ROZMIAR>::Wektor(TYP x, TYP y, TYP z)
@@ -21,8 +25,29 @@ Wektor<TYP,_ROZMIAR>::Wektor(TYP x, TYP y, TYP z)
     (*this)[0] = x;
     (*this)[1] = y;
     (*this)[2] = z;
+    ile_istnieje++;
+    ile_utworzono++;
 }
+template<class TYP, int _ROZMIAR>
+Wektor<TYP,_ROZMIAR>::~Wektor()
+{
+    if (ile_istnieje>0)
+    {
+        ile_istnieje--;
+    }
+}
+
 //-----------------------------------------------------------------get set------------------------------------------------//
+
+template<class TYP, int _ROZMIAR>
+unsigned long Wektor<TYP,_ROZMIAR>::zwroc_ile_istn(){
+    return ile_istnieje;
+}
+template<class TYP, int _ROZMIAR>
+unsigned long Wektor<TYP,_ROZMIAR>::zwroc_ile_utw(){
+    return ile_utworzono;
+}
+
 template<class TYP, int _ROZMIAR>
 const TYP & Wektor<TYP,_ROZMIAR>::operator[] (int index) const
 {

@@ -3,7 +3,7 @@
 
 #include "InterfejsDron.hh"
 
-class Przeszkoda {       //czy moze dziedziczyc po Figura3D ??? 
+class Przeszkoda {     
   protected:
   public:
     /*!

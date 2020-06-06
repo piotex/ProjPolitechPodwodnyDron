@@ -1,17 +1,19 @@
 #include "Dron.hh"
 
 Dron::Dron(){
-  predkosc = 5;
-  dlugosciBokow = Wektor<double,3>(100,50,20);
+    predkosc = 5;
+    dlugosciBokow = Wektor<double,3>(100,50,20);
 }
 Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki){
-  api = _api;
-  predkosc = 5;
-  dlugosciBokow = boki;
-  g1.set_api(_api);
-  g2.set_api(_api);
-  g1.set_pSrodka(Wektor<double,3> (-25,-45,0));
-  g2.set_pSrodka(Wektor<double,3> (25,-45,0));
+    api = _api;
+    predkosc = 5;
+    dlugosciBokow = boki;
+    g1.set_api(_api);
+    g2.set_api(_api);
+    g1.set_pSrodka(Wektor<double,3> (-25,-45,0));
+    g2.set_pSrodka(Wektor<double,3> (25,-45,0));
+
+    rysuj();
 }
 
 Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> osObroty,double kat){
@@ -43,6 +45,7 @@ void Dron::get_punktyKrytyczne(vector<Wektor<double,3>> &punkty){
 }
 
 int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp){
+  bool wartko = true;
   if (typ==OsZ)
   {
     double predkosc_lokal = 1 * ( kat / abs(kat) );
@@ -74,21 +77,25 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
 
         g2.pSrodka = obrotZ(g2.pSrodka,pSrodka,-predkosc_lokal);
         g2.obrot(OsZ,predkosc_lokal);
-/*
-        if (static_cast<int>(kat)%static_cast<int>(predkosc) == 0)    // szybciej sie porusza a na koncu i tak jest rysuj wiec zawszecos wyrysuje
+        if (!wartko)
         {
-            g1.obrot(OsY,-120);
-            g2.obrot(OsY,120);
-            for (int i = 0; i < 3; i++)
+            if (static_cast<int>(kat)%static_cast<int>(predkosc) == 0)    // szybciej sie porusza a na koncu i tak jest rysuj wiec zawszecos wyrysuje
             {
-                g1.obrot(OsY,40);
-                g2.obrot(OsY,-40);
-                rysuj();
+                g1.obrot(OsY,-120);
+                g2.obrot(OsY,120);
+                for (int i = 0; i < 3; i++)
+                {
+                    g1.obrot(OsY,40);
+                    g2.obrot(OsY,-40);
+                    rysuj();
+                }
             }
         }
-*/
-      if (static_cast<int>(kat)%static_cast<int>(predkosc) == 0)
-        rysuj();    //po odkomentowaniu ^ obrotu skrzydelkami -> ta linie zakomentowac
+        else
+        {
+            if (static_cast<int>(kat)%static_cast<int>(predkosc) == 0)
+              rysuj();   
+        }
         kat-=1;
     }
     rysuj();
@@ -103,6 +110,8 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
 
 
 int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
+    bool wartko = true;
+
     double predkosc_lokal = 1 * ( r / abs(r) );
     r= abs(r);
 
@@ -110,20 +119,20 @@ int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
     {
         for (int i = 0; i < fp.size(); i++)
         {
-          if(fp[i]->czy_kolizja(this)){
-            Wektor<double,3> dyst(0,-predkosc_lokal*10,0);
-            obrot(OsX,-kat,fp); //zmiana wektora kierunkowego
-            get_zorientowanyWektor(dyst);
-            pSrodka = pSrodka + dyst;
-            obrot(OsX,kat,fp); //powrot wektora kierunkowego
+            if(fp[i]->czy_kolizja(this)){
+                Wektor<double,3> dyst(0,-predkosc_lokal,0);
+                obrot(OsX,-kat,fp); //zmiana wektora kierunkowego
+                get_zorientowanyWektor(dyst);
+                pSrodka = pSrodka + dyst;
+                obrot(OsX,kat,fp); //powrot wektora kierunkowego
 
-            g1.przesun(dyst);
-            g2.przesun(dyst);
+                g1.przesun(dyst);
+                g2.przesun(dyst);
 
-            rysuj();
-            std::cout<<"\n\nwystapila kolizja\n\n";
-            return 1;
-          }
+                rysuj();
+                std::cout<<"\n\nwystapila kolizja\n\n";
+                return 1;
+            }
         }
 
         Wektor<double,3> dyst(0,predkosc_lokal,0);
@@ -134,22 +143,24 @@ int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
 
         g1.przesun(dyst);
         g2.przesun(dyst);
-/*
-        if (static_cast<int>(r)%static_cast<int>(predkosc) == 0)    // szybciej sie porusza a na koncu i tak jest rysuj wiec zawszecos wyrysuje
+        if (!wartko)
         {
-            g1.obrot(OsY,-120);
-            g2.obrot(OsY,-120);
-            for (int i = 0; i < 3; i++)
+            if (static_cast<int>(r)%static_cast<int>(predkosc) == 0)    // szybciej sie porusza a na koncu i tak jest rysuj wiec zawszecos wyrysuje
             {
-                g1.obrot(OsY,40);
-                g2.obrot(OsY,40);
-                rysuj();
+                g1.obrot(OsY,-120);
+                g2.obrot(OsY,-120);
+                for (int i = 0; i < 3; i++)
+                {
+                    g1.obrot(OsY,40);
+                    g2.obrot(OsY,40);
+                    rysuj();
+                }
             }
         }
- */
-      if (static_cast<int>(r)%static_cast<int>(predkosc) == 0)
-        rysuj();    //po odkomentowaniu ^ obrotu skrzydelkami -> ta linie zakomentowac
-
+        else{
+          if (static_cast<int>(r)%static_cast<int>(predkosc) == 0)
+            rysuj();    
+        }
         r--;
     }
     rysuj();
@@ -157,38 +168,9 @@ int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
 }
 
 void Dron::rysuj(){
-
-
   Prostopadloscian::rysuj();
   g1.rysuj();
   g2.rysuj();
-
-  // vector<Wektor<double,3>> punkty;
-  // get_punktyKrytyczne(punkty);
-  // Prostopadloscian p(api,Wektor<double,3>(10,10,10));
-  // p.set_pSrodka(punkty[4]);
-  // p.rysuj();
-
-  ///////////////////////////////////////////////////////////////////////////////////
-      // int _id_doUsuniecia = 0;
-      // vector<Wektor<double,3>> punkty;
-      //     get_punktyKrytyczne(punkty);
-      //   if(_id_doUsuniecia != 0)
-      //       api->erase_shape(_id_doUsuniecia);
-      //   vector<vector<Point3D>> prost = vector<vector<Point3D>> {{
-      //                                       drawNS::Point3D(punkty[0][0],punkty[0][1],punkty[0][2]), 
-      //                                       drawNS::Point3D(punkty[1][0],punkty[1][1],punkty[1][2]), 
-      //                                       drawNS::Point3D(punkty[2][0],punkty[2][1],punkty[2][2]), 
-      //                                       drawNS::Point3D(punkty[3][0],punkty[3][1],punkty[3][2])
-      //                                   },{
-      //                                       drawNS::Point3D(punkty[4][0],punkty[4][1],punkty[4][2]), 
-      //                                       drawNS::Point3D(punkty[5][0],punkty[5][1],punkty[5][2]), 
-      //                                       drawNS::Point3D(punkty[6][0],punkty[6][1],punkty[6][2]), 
-      //                                       drawNS::Point3D(punkty[7][0],punkty[7][1],punkty[7][2])
-      //                                   }};
-      //   _id_doUsuniecia = api->draw_polyhedron(prost,"red");
-    ///////////////////////////////////////////////////////////////////////////////////
-
 }
 
 Wektor<double,3> Dron::get_srodek_masyDrona(){
@@ -213,3 +195,43 @@ Wektor<double,3> Dron::get_wymiary_Drona(){
     return ret;
 }
 
+bool Dron::czy_kolizja(InterfejsDron* dron){
+
+    if (dron == this)
+    {
+    }
+    else{
+      vector<Wektor<double,3>> punkty;
+      vector<Wektor<double,3>> punkty_przeszkody;
+      dron->get_punktyKrytyczne(punkty);
+      get_punktyKrytyczne(punkty_przeszkody);
+
+      bool okx = false;
+      bool oky = false;
+      bool okz = false;
+
+      for (int i = 0; i < 8; i++)
+      {
+          if ((punkty[i][0] > punkty_przeszkody[0][0] && punkty[i][0] < punkty_przeszkody[1][0] )|| (punkty[i][0] > punkty_przeszkody[1][0] && punkty[i][0] < punkty_przeszkody[0][1]))
+          {
+              okx = true;
+          }
+          if (punkty[i][1] > punkty_przeszkody[3][1] && punkty[i][1] < punkty_przeszkody[0][1])
+          {
+              oky = true;
+          }
+          if (punkty[i][2] < punkty_przeszkody[0][2] && punkty[i][2] > punkty_przeszkody[4][2])
+          {
+              okz = true;
+          }
+      }
+      if(okz && okx && oky){
+          return true;
+      }
+
+      return false;
+
+    }
+    return false;
+
+}

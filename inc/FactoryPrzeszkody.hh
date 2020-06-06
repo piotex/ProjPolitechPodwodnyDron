@@ -2,6 +2,9 @@
 #define FACTORYPRZESZKODA_HH
 
 #include "Przeszkoda.hh"
+#include "Dron.hh"
+#include "Plaszczyzna.hh"
+#include "Plaszczyzna_Wody.hh"
 #include "PrzeszkodaPrent.hh"
 #include "PrzeszkodaProstopadloscian.hh"
 #include "Dr3D_gnuplot_api.hh"

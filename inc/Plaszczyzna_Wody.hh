@@ -3,7 +3,7 @@
 
 #include "Plaszczyzna.hh"
 
-class Plaszczyzna_Wody : public Plaszczyzna{
+class Plaszczyzna_Wody : public Plaszczyzna {
     public:   
         /*!
         * \brief konstruktor ustawiajacy poczatkowe wartosci Plaszczyzna_Wody
@@ -17,7 +17,8 @@ class Plaszczyzna_Wody : public Plaszczyzna{
         /*!
         * \brief funkcja sluzaca do tworzenia obrazu w gnuplocie 
         */ 
-        void rysuj() override;     
+        void rysuj() override;   
+        bool czy_kolizja(InterfejsDron* dron) override; 
 };
 
 #endif

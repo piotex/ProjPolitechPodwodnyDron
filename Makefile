@@ -8,7 +8,7 @@ workingFile: obj/main.o obj/LiczbaZespolona.o obj/PrzeszkodaPrent.o obj/FactoryP
 	g++ -Wall -pedantic -o workingFile obj/*.o  -lpthread 
 
 obj/main.o: src/main.cpp obj/LiczbaZespolona.o obj/PrzeszkodaPrent.o obj/FactoryPrzeszkody.o obj/PrzeszkodaProstopadloscian.o obj/Sruba.o obj/Graniastoslup.o obj/Plaszczyzna_Wody.o inc/Dron.hh inc/Dr3D_gnuplot_api.hh inc/Plaszczyzna.hh inc/Figura3D.hh inc/Prostopadloscian.hh inc/MacierzObrotu.hh  inc/Wektor.hh inc/MacierzKw.hh 
-	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp	
+	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp			
 
 obj/LiczbaZespolona.o: src/LiczbaZespolona.cpp inc/LiczbaZespolona.hh 
 	g++ ${CPPFLAGS} -o obj/LiczbaZespolona.o src/LiczbaZespolona.cpp

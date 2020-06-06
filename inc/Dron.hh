@@ -9,7 +9,7 @@
 /*!
 * \brief Dron - klasa reprezentujaca drona
 */
-class Dron : public Prostopadloscian, public InterfejsDron {   
+class Dron : public Prostopadloscian, public InterfejsDron, public Przeszkoda {   
   protected:
     /*!
     * \brief skok drona
@@ -56,6 +56,9 @@ class Dron : public Prostopadloscian, public InterfejsDron {
     * \param kat - kat pod ktorym dron bedzie sie poruszal 
     */ 
     int plyn(double dyst,double kat,vector<std::shared_ptr<Przeszkoda>> fp);
+
+    bool czy_kolizja(InterfejsDron* dron) override; 
+
 };
 
 #endif

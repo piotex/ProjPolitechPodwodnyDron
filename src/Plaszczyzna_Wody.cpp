@@ -6,6 +6,7 @@ Plaszczyzna_Wody::Plaszczyzna_Wody(){
 Plaszczyzna_Wody::Plaszczyzna_Wody(std::shared_ptr<drawNS::Draw3DAPI> &_api,Wektor<double,3> pol){
   pSrodka = pol;
   api = _api;
+  rysuj();
 }
 void Plaszczyzna_Wody::rysuj(){
     double korekta = 20;
@@ -25,4 +26,18 @@ void Plaszczyzna_Wody::rysuj(){
       macierz.push_back(cd);
     }
     id = api->draw_surface(macierz,"blue");
+}
+bool Plaszczyzna_Wody::czy_kolizja(InterfejsDron* dron){
+    vector<Wektor<double,3>> punkty;
+      dron->get_punktyKrytyczne(punkty);
+
+      bool przeszedl = false;
+
+      for (int i = 0; i < 8; i++)
+      {
+          if(punkty[i][2] > pSrodka[2]){
+              przeszedl = true;
+          }
+      }
+      return przeszedl;
 }

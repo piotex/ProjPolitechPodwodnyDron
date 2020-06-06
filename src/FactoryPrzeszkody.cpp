@@ -6,6 +6,10 @@ FactoryPrzeszkody::FactoryPrzeszkody(){
 FactoryPrzeszkody::FactoryPrzeszkody(std::shared_ptr<drawNS::Draw3DAPI> &_api){
     api = _api;
 
+    std::shared_ptr<Plaszczyzna_Wody> plaszczyzna_1(new Plaszczyzna_Wody(api,Wektor<double,3>(-300,-300,380)));
+    std::shared_ptr<Plaszczyzna> plaszczyzna_2(new Plaszczyzna(api,Wektor<double,3>(-300,-300,-180)));
+    dic1.push_back(plaszczyzna_1);
+    dic1.push_back(plaszczyzna_2);
     std::shared_ptr<PrzeszkodaProstopadloscian> prostopadloscian_1(new PrzeszkodaProstopadloscian(api,Wektor<double,3>(25,150,60),Wektor<double,3>(125,50,50)));
     std::shared_ptr<PrzeszkodaProstopadloscian> prostopadloscian_2(new PrzeszkodaProstopadloscian(api,Wektor<double,3>(25,100,40),Wektor<double,3>(125,50,0)));
     std::shared_ptr<PrzeszkodaProstopadloscian> prostopadloscian_3(new PrzeszkodaProstopadloscian(api,Wektor<double,3>(70,70,70),Wektor<double,3>(125,-50,-50)));

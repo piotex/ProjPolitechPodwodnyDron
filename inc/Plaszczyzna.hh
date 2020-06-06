@@ -2,8 +2,10 @@
 #define PLASZCZYZNA_HH
 
 #include "Figura3D.hh"
+#include "InterfejsDron.hh"
+#include "Przeszkoda.hh"
 
-class Plaszczyzna : public Figura3D{
+class Plaszczyzna : public Figura3D, public Przeszkoda{
     protected:
         int rozmiar = 80;
         int numer = 8;
@@ -20,7 +22,10 @@ class Plaszczyzna : public Figura3D{
         /*!
         * \brief funkcja sluzaca do tworzenia obrazu w gnuplocie 
         */ 
-        void rysuj() override;     
+        void rysuj() override; 
+
+        bool czy_kolizja(InterfejsDron* dron) override; 
+
 };
 
 #endif
