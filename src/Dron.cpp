@@ -26,6 +26,16 @@ Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> osObroty,double kat)
 void Dron::get_punktyKrytyczne(vector<Wektor<double,3>> &punkty){
     Wektor<double,3> tab[8];
     get_wyliczonePunkty(tab);
+    Wektor<double,3> przesuniecieNiewygodne(-10,-10,0);
+    Wektor<double,3> przesuniecieNiewygodne2(10,-10,0);
+    get_zorientowanyWektor(przesuniecieNiewygodne);
+    get_zorientowanyWektor(przesuniecieNiewygodne2);
+
+    tab[3] += przesuniecieNiewygodne2;
+    tab[2] += przesuniecieNiewygodne;
+    tab[7] += przesuniecieNiewygodne2;
+    tab[6] += przesuniecieNiewygodne;
+
     for (int i = 0; i < 8; i++)
     {
       punkty.push_back(tab[i] );
@@ -41,15 +51,22 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
     {
         for (int i = 0; i < fp.size(); i++)
         {
-          if(fp[i]->czy_kolizja(this)){
+            if(fp[i]->czy_kolizja(this)){
+                MacierzObrotu mac(typ,-predkosc_lokal);
+                orientacja = orientacja * mac;
 
-            std::cout<<"\n\nwystapila kolizja\n\n";
-            return 1;
-          }
+                g1.pSrodka = obrotZ(g1.pSrodka,pSrodka,predkosc_lokal);
+                g1.obrot(OsZ,-predkosc_lokal);
+
+                g2.pSrodka = obrotZ(g2.pSrodka,pSrodka,predkosc_lokal);
+                g2.obrot(OsZ,-predkosc_lokal);
+                rysuj();
+                std::cout<<"\n\nwystapila kolizja\n\n";
+                return 1;
+            }
         }
       
         MacierzObrotu mac(typ,predkosc_lokal);
-
         orientacja = orientacja * mac;
 
         g1.pSrodka = obrotZ(g1.pSrodka,pSrodka,-predkosc_lokal);
@@ -85,7 +102,6 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
 }
 
 
-
 int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
     double predkosc_lokal = 1 * ( r / abs(r) );
     r= abs(r);
@@ -95,8 +111,16 @@ int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
         for (int i = 0; i < fp.size(); i++)
         {
           if(fp[i]->czy_kolizja(this)){
+            Wektor<double,3> dyst(0,-predkosc_lokal*10,0);
+            obrot(OsX,-kat,fp); //zmiana wektora kierunkowego
+            get_zorientowanyWektor(dyst);
+            pSrodka = pSrodka + dyst;
+            obrot(OsX,kat,fp); //powrot wektora kierunkowego
 
+            g1.przesun(dyst);
+            g2.przesun(dyst);
 
+            rysuj();
             std::cout<<"\n\nwystapila kolizja\n\n";
             return 1;
           }

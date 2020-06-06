@@ -47,12 +47,24 @@ bool PrzeszkodaPrent::czy_kolizja(InterfejsDron* dron){
         }
         if (ok)
         {
+            // std::cout<<"ok\n";
             if (punkty[0][2] > pSrodka[2] && punkty[4][2] < pSrodka[2])
             {
-                if( (punkty[0][1] >  pSrodka[1] && punkty[3][1] < pSrodka[1]) || (punkty[2][1] >  pSrodka[1] && punkty[1][1] < pSrodka[1]) )
+                // std::cout<<"ok1\n";
+                // std::cout<< pSrodka[1] <<"\n";
+                // std::cout<< punkty[0][1] <<"\n";
+                // std::cout<< punkty[3][1] <<"\n";
+                // std::cout<< pSrodka[1] <<"\n";
+                // std::cout<< punkty[1][1] <<"\n";
+                // std::cout<< punkty[2][1] <<"\n";
+                if( (punkty[0][1] >  pSrodka[1] && punkty[3][1] < pSrodka[1]) 
+                 || (punkty[3][1] >  pSrodka[1] && punkty[0][1] < pSrodka[1]) 
+                 || (punkty[1][1] >  pSrodka[1] && punkty[2][1] < pSrodka[1]) 
+                 || (punkty[2][1] >  pSrodka[1] && punkty[1][1] < pSrodka[1]) )
                 {
-                    double x1 = pSrodka[0] + dlugosc;
-                    double x2 = pSrodka[0] - dlugosc;
+                    // std::cout<<"ok2\n";
+                    // double x1 = pSrodka[0] + dlugosc;
+                    // double x2 = pSrodka[0] - dlugosc;
                         return true;
                 }
             } 

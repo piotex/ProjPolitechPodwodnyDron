@@ -75,7 +75,7 @@ int main(int argc, char **argv)
                                 std::cout << "Koniec programu\n\n" ;
                                 exit(1);
                                 break;
-                        }case 'q':{
+                        }case 'z':{
                                 int _id_doUsuniecia = 0;
                                 vector<Wektor<double,3>> punkty;
                                 dron.get_punktyKrytyczne(punkty);
