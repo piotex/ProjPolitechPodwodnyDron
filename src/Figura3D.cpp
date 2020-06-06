@@ -5,6 +5,7 @@ Figura3D::Figura3D() {
 }
 Figura3D::Figura3D(std::shared_ptr<drawNS::Draw3DAPI> &_api){
     api = _api;
+    kolor = Black;
 }
 
 void Figura3D::usunFigure(){

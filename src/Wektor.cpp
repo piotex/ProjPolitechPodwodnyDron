@@ -8,16 +8,17 @@ Wektor<TYP,_ROZMIAR>::Wektor()
     {
         (*this)[i] = 0;
     }
-    ile_istnieje++;
     ile_utworzono++;
+    ile_istnieje++;
 }
 template<class TYP, int _ROZMIAR>
 Wektor<TYP,_ROZMIAR>::Wektor(TYP *tab)
 {
-  for (int i=0; i<size; i++)
-    (*this)[i] = tab[i];
-    ile_istnieje++;
+    for (int i=0; i<size; i++){
+        (*this)[i] = tab[i];
+    }
     ile_utworzono++;
+    ile_istnieje++;
 }
 template<class TYP, int _ROZMIAR>
 Wektor<TYP,_ROZMIAR>::Wektor(TYP x, TYP y, TYP z)
@@ -25,16 +26,13 @@ Wektor<TYP,_ROZMIAR>::Wektor(TYP x, TYP y, TYP z)
     (*this)[0] = x;
     (*this)[1] = y;
     (*this)[2] = z;
-    ile_istnieje++;
     ile_utworzono++;
+    ile_istnieje++;
 }
 template<class TYP, int _ROZMIAR>
 Wektor<TYP,_ROZMIAR>::~Wektor()
 {
-    if (ile_istnieje>0)
-    {
-        ile_istnieje--;
-    }
+    ile_istnieje--;
 }
 
 //-----------------------------------------------------------------get set------------------------------------------------//

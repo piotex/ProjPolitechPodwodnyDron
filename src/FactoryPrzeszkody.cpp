@@ -19,9 +19,11 @@ FactoryPrzeszkody::FactoryPrzeszkody(std::shared_ptr<drawNS::Draw3DAPI> &_api){
     std::shared_ptr<PrzeszkodaPrent> pret_4(new PrzeszkodaPrent(api,50,Wektor<double,3>(0,150,50)));
     std::shared_ptr<PrzeszkodaPrent> pret_5(new PrzeszkodaPrent(api,100,Wektor<double,3>(0,150,0)));
     std::shared_ptr<PrzeszkodaPrent> pret_6(new PrzeszkodaPrent(api,150,Wektor<double,3>(0,150,-50)));
+    std::shared_ptr<PrzeszkodaPrent> pret_7(new PrzeszkodaPrent(api,150,Wektor<double,3>(-180,0,50),OsY));
     dic1.push_back(pret_4);
     dic1.push_back(pret_5);
     dic1.push_back(pret_6);
+    dic1.push_back(pret_7);
 }
 void FactoryPrzeszkody::get_kolekcja(vector<std::shared_ptr<Przeszkoda>> &dic11){
     dic11 = dic1;

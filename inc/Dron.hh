@@ -33,7 +33,7 @@ class Dron : public Prostopadloscian, public InterfejsDron, public Przeszkoda {
     * \param _api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
     * \param boki - Wektor<double,3> reprezentujacy boki drona
     */  
-    Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki);
+    Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki,Kolor c=Black);
 
     /*!
     * \brief rysuj() - funkcja sluzaca rysowania drona
@@ -58,6 +58,8 @@ class Dron : public Prostopadloscian, public InterfejsDron, public Przeszkoda {
     int plyn(double dyst,double kat,vector<std::shared_ptr<Przeszkoda>> fp);
 
     bool czy_kolizja(InterfejsDron* dron) override; 
+
+    int teleport(double dyst,double kat,vector<std::shared_ptr<Przeszkoda>> fp);
 
 };
 

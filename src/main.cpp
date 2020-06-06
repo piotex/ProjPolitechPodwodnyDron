@@ -22,6 +22,7 @@ using std::endl;
 int main(int argc, char **argv)
 {
         char c = 'x';
+        char d = 'x';
         double kat =0;;
         double r=0;
 
@@ -37,22 +38,29 @@ int main(int argc, char **argv)
         vector<std::shared_ptr<Przeszkoda>> przeszkody;
         fp.get_kolekcja(przeszkody);
 
-        std::shared_ptr<Dron> dron1(new Dron(api,Wektor<double,3>(50,80,20)));
-        std::shared_ptr<Dron> dron2(new Dron(api,Wektor<double,3>(50,80,20)));
-        std::shared_ptr<Dron> dron3(new Dron(api,Wektor<double,3>(50,80,20)));
-        dron2->plyn(150,-45,przeszkody);
-        dron3->plyn(150,45,przeszkody);
+        std::shared_ptr<Dron> dron1(new Dron(api,Wektor<double,3>(50,80,20),R));
+        std::shared_ptr<Dron> dron2(new Dron(api,Wektor<double,3>(50,80,20),G));
+        std::shared_ptr<Dron> dron3(new Dron(api,Wektor<double,3>(50,80,20),B));
+        dron2->teleport(150,-45,przeszkody);
+        dron3->teleport(-150,45,przeszkody);
 
         przeszkody.push_back(dron1);
         przeszkody.push_back(dron2);
         przeszkody.push_back(dron3);
 
-        std::cout << "r - zadaj ruch na wprost\no - zadaj zmiane orientacji\nm - wyswietl menu\n\nk - koniec dzialania programu\n\n";
+        
+        std::cout << "r - zadaj ruch na wprost\n";
+        std::cout << "o - zadaj zmiane orientacji\n";
+        std::cout << "m - wyswietl menu\n";
+        std::cout << "k - koniec dzialania programu\n\n";
 
         while (c!='k')
         {
-                std::cout << "\n>:" ;
+                std::cout << "\npolecenie [r,o,m,k]>:" ;
                 std::cin >> c;
+                std::cout << "\nWybierz drona 'R' 'G' 'B'\n>:" ;
+                std::cin >> d;
+
                 switch (c)
                 {
                         case 'r':{
@@ -61,13 +69,41 @@ int main(int argc, char **argv)
                                 std::cout << "Podaj wartosc odleglosci, na ktora ma sie przemiescic dron.\n" ;
                                 std::cin >> r;
                                 std::cout<<kat<<"  "<<r;
-                                dron1->plyn(r,kat,przeszkody);
+                                switch (d)
+                                {
+                                        case 'R':{
+                                                dron1->plyn(r,kat,przeszkody);
+                                                break;
+                                        }
+                                        case 'G':{
+                                                dron2->plyn(r,kat,przeszkody);
+                                                break;
+                                        }
+                                        case 'B':{
+                                                dron3->plyn(r,kat,przeszkody);
+                                                break;
+                                        }
+                                }
                                 break;
                         }
                         case 'o':{
                                 std::cout << "Podaj wartosc kata obrotu w stopniach.\n" ;
                                 std::cin >> kat;
-                                dron1->obrot(OsZ,kat,przeszkody);
+                                switch (d)
+                                {
+                                        case 'R':{
+                                                dron1->obrot(OsZ,kat,przeszkody);
+                                                break;
+                                        }
+                                        case 'G':{
+                                                dron2->obrot(OsZ,kat,przeszkody);
+                                                break;
+                                        }
+                                        case 'B':{
+                                                dron3->obrot(OsZ,kat,przeszkody);
+                                                break;
+                                        }
+                                }
                                 break;
                         }
                         case 'm':{
@@ -78,7 +114,8 @@ int main(int argc, char **argv)
                                 std::cout << "Koniec programu\n\n" ;
                                 exit(1);
                                 break;
-                        }case 'z':{
+                        }
+                        case 'z':{
                                 int _id_doUsuniecia = 0;
                                 vector<Wektor<double,3>> punkty;
                                 dron1->get_punktyKrytyczne(punkty);
@@ -99,8 +136,12 @@ int main(int argc, char **argv)
                                 break;
                         }
                 }
-                std::cout << "\n--------------------------------\nAktualna ilosc obiektow Wektor3D: "<< Wektor<double,3>::zwroc_ile_istn() <<"\n" ;
-                std::cout << "\nLaczna ilosc obiektow Wektor3D: "<< Wektor<double,3>::zwroc_ile_utw() <<"\n----------------------------------\n" ;
+                std::cout << "\n--------------------------------\nAktualna ilosc obiektow Wektor3D: ";
+                std::cout << Wektor<double,3>::zwroc_ile_istn() <<"\n" ;
+                std::cout << "\nLaczna ilosc obiektow Wektor3D: ";
+                std::cout << Wektor<double,3>::zwroc_ile_utw() <<"\n----------------------------------\n\n\n" ;
+
+
         }
 
 

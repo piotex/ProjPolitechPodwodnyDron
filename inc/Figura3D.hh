@@ -9,6 +9,12 @@ using std::vector;
 using drawNS::Point3D;
 using drawNS::APIGnuPlot3D;
 
+enum Kolor{
+    R,
+    G,
+    B,
+    Black
+};
 /*!
 * \brief Figura3DDron - klasa reprezentujaca obiekt 3D
 */
@@ -22,6 +28,9 @@ class Figura3D {
     * \brief api - pole przechowujace obiekt sluzacy do tworzenia grafiki w gnuplocie
     */
     std::shared_ptr<drawNS::Draw3DAPI> api;
+
+    Kolor kolor;
+
 
   public: 
     /*!

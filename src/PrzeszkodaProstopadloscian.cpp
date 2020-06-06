@@ -12,6 +12,7 @@ PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::D
     }
     api = _api;
     dlugosciBokow = dlB;
+    kolor = Black;
     pSrodka = pol;
     rysuj();
 }

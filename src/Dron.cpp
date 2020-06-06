@@ -4,15 +4,15 @@ Dron::Dron(){
     predkosc = 5;
     dlugosciBokow = Wektor<double,3>(100,50,20);
 }
-Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki){
+Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wektor<double,3> boki,Kolor c){
     api = _api;
+    kolor = c;
     predkosc = 5;
     dlugosciBokow = boki;
     g1.set_api(_api);
     g2.set_api(_api);
     g1.set_pSrodka(Wektor<double,3> (-25,-45,0));
     g2.set_pSrodka(Wektor<double,3> (25,-45,0));
-
     rysuj();
 }
 
@@ -52,7 +52,7 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
     kat= abs(kat);
     while (kat>0)
     {
-        for (int i = 0; i < fp.size(); i++)
+        for (unsigned int i = 0; i < fp.size(); i++)
         {
             if(fp[i]->czy_kolizja(this)){
                 MacierzObrotu mac(typ,-predkosc_lokal);
@@ -82,7 +82,7 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
             if (static_cast<int>(kat)%static_cast<int>(predkosc) == 0)    // szybciej sie porusza a na koncu i tak jest rysuj wiec zawszecos wyrysuje
             {
                 g1.obrot(OsY,-120);
-                g2.obrot(OsY,120);
+                g2.obrot(OsY,12);
                 for (int i = 0; i < 3; i++)
                 {
                     g1.obrot(OsY,40);
@@ -108,16 +108,53 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
   return 0;
 }
 
+int Dron::teleport(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
+    double predkosc_lokal = 1 * ( r / abs(r) );
+    r= abs(r);
+    while (r>0)
+    {
+        for (unsigned int i = 0; i < fp.size(); i++)
+        {
+            if(fp[i]->czy_kolizja(this)){
+                Wektor<double,3> dyst(0,-predkosc_lokal,0);
+                obrot(OsX,-kat,fp); //zmiana wektora kierunkowego
+                get_zorientowanyWektor(dyst);
+                pSrodka = pSrodka + dyst;
+                obrot(OsX,kat,fp); //powrot wektora kierunkowego
+
+                g1.przesun(dyst);
+                g2.przesun(dyst);
+
+                rysuj();
+                std::cout<<"\n\nwystapila kolizja\n\n";
+                return 1;
+            }
+        }
+
+        Wektor<double,3> dyst(0,predkosc_lokal,0);
+        obrot(OsX,-kat,fp); //zmiana wektora kierunkowego
+        get_zorientowanyWektor(dyst);
+        pSrodka = pSrodka + dyst;
+        obrot(OsX,kat,fp); //powrot wektora kierunkowego
+
+        g1.przesun(dyst);
+        g2.przesun(dyst);
+        r--;
+    }
+    rysuj();
+    return 0;
+}
+
 
 int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
-    bool wartko = true;
+    bool wartko = false;
 
     double predkosc_lokal = 1 * ( r / abs(r) );
     r= abs(r);
 
     while (r>0)
     {
-        for (int i = 0; i < fp.size(); i++)
+        for (unsigned int i = 0; i < fp.size(); i++)
         {
             if(fp[i]->czy_kolizja(this)){
                 Wektor<double,3> dyst(0,-predkosc_lokal,0);
@@ -158,7 +195,7 @@ int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
             }
         }
         else{
-          if (static_cast<int>(r)%static_cast<int>(predkosc) == 0)
+          if (static_cast<int>(r)%static_cast<int>(predkosc/2) == 0)
             rysuj();    
         }
         r--;

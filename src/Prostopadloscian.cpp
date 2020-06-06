@@ -1,4 +1,5 @@
 #include "Prostopadloscian.hh"
+#include <string>
 
 Prostopadloscian::Prostopadloscian(){
     dlugosciBokow = Wektor<double,3>(10,10,10);
@@ -12,6 +13,8 @@ Prostopadloscian::Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wek
     }
     api = _api;
     dlugosciBokow = dlB;
+    kolor = Black;
+
 }
 
 void Prostopadloscian::get_wyliczonePunkty(Wektor<double,3> *ret){
@@ -36,6 +39,26 @@ void Prostopadloscian::get_wyliczonePunkty(Wektor<double,3> *ret){
   ret[7] = pSrodka + idn - bokY - bokZ;
 }
 void Prostopadloscian::rysuj() {
+    std::string col = "black";
+    switch (kolor)
+    {
+        case R:{
+            col = "red";
+            break;
+        }
+        case G:{
+            col = "green";
+            break;
+        }
+        case B:{
+            col = "blue";
+            break;
+        }
+        case Black:{
+            col = "black";
+            break;
+        }
+    }
     if(id != 0)
         usunFigure();
     Wektor<double,3> tab[8];
@@ -51,7 +74,7 @@ void Prostopadloscian::rysuj() {
                                         drawNS::Point3D(tab[6][0],tab[6][1],tab[6][2]), 
                                         drawNS::Point3D(tab[7][0],tab[7][1],tab[7][2])
                                     }};
-    id = api->draw_polyhedron(prost);
+    id = api->draw_polyhedron(prost,col);
  
 }
 
