@@ -3,7 +3,6 @@
 #include<iostream>
 #include <math.h> 
 #include "Figura3D.hh"
-#include "MacierzObrotu.hh"
 
 class Prostopadloscian : public Figura3D{    
   protected:
@@ -26,7 +25,7 @@ class Prostopadloscian : public Figura3D{
     /*!
     * \brief funkcja sluzaca do wyliczania punktow skladowych Prostopadloscian
     */ 
-    virtual void get_wyliczonePunkty(Wektor<double,3> *ret);
+    void get_wyliczonePunkty(Wektor<double,3> *ret);
 
 };
 

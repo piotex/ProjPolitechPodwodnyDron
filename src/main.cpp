@@ -6,6 +6,7 @@
 #include "Plaszczyzna_Wody.hh"
 #include "Graniastoslup.hh"
 #include "FactoryPrzeszkody.hh"
+#include "Przeszkoda.hh"
 
 #include <unistd.h>
 #include <termios.h>
@@ -32,8 +33,9 @@ int main(int argc, char **argv)
         api->change_ref_time_ms(0);
 
         FactoryPrzeszkody fp(api);
-        fp.rysuj();
-        
+        vector<std::shared_ptr<Przeszkoda>> przeszkody;
+        fp.get_kolekcja(przeszkody);
+
         Dron dron(api,Wektor<double,3>(50,80,20));
         dron.rysuj();
 
@@ -56,21 +58,13 @@ int main(int argc, char **argv)
                                 std::cout << "Podaj wartosc odleglosci, na ktora ma sie przemiescic dron.\n" ;
                                 std::cin >> r;
                                 std::cout<<kat<<"  "<<r;
-                                dron.plyn(r,kat);
-                                if(fp.wystapilaKolizja(&dron)){
-                                        std::cout << "Wystapila kolizja.\n" ;
-                                        exit(1);
-                                }
+                                dron.plyn(r,kat,przeszkody);
                                 break;
                         }
                         case 'o':{
                                 std::cout << "Podaj wartosc kata obrotu w stopniach.\n" ;
                                 std::cin >> kat;
-                                dron.obrot(OsZ,kat);
-                                if(fp.wystapilaKolizja(&dron)){
-                                        std::cout << "Wystapila kolizja.\n" ;
-                                        exit(1);
-                                }
+                                dron.obrot(OsZ,kat,przeszkody);
                                 break;
                         }
                         case 'm':{

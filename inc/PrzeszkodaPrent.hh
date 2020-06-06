@@ -1,11 +1,16 @@
 #ifndef PRZESZKODAPRENT_HH
 #define PRZESZKODAPRENT_HH
 
-#include "PrzeszkodaProstopadloscian.hh"
+#include "Przeszkoda.hh"
+#include "Figura3D.hh"
 
-class PrzeszkodaPrent : public PrzeszkodaProstopadloscian {      
+class PrzeszkodaPrent : public Przeszkoda ,public Figura3D {      
   protected:
   public:
+    /*!
+    * \brief pole reprezentujace dlugosc preta
+    */ 
+    double dlugosc;
     /*!
     * \brief konstruktor ustawiajacy poczatkowe wartosci PrzeszkodaProstopadloscian
     */ 
@@ -14,10 +19,13 @@ class PrzeszkodaPrent : public PrzeszkodaProstopadloscian {
     * \brief konstruktor ustawiajacy poczatkowe wartosci PrzeszkodaProstopadloscian
     * \param api - przekazywany przez referencje obiekt do tworzenia obrazu w gnuplocie  
     */ 
-    PrzeszkodaPrent(std::shared_ptr<drawNS::Draw3DAPI> &_api, double promien, double dlugosc);
+    PrzeszkodaPrent(std::shared_ptr<drawNS::Draw3DAPI> &_api, double dlB, Wektor<double,3> pol);
 
     bool czy_kolizja(InterfejsDron* dron) override; 
-
+    /*!
+    * \brief funkcja sluzaca do tworzenia obrazu w gnuplocie 
+    */ 
+    void rysuj() override;
 };
 
 

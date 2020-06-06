@@ -1,20 +1,22 @@
 #ifndef FACTORYPRZESZKODA_HH
 #define FACTORYPRZESZKODA_HH
 
-#include "InterfejsDron.hh"
+#include "Przeszkoda.hh"
 #include "PrzeszkodaPrent.hh"
 #include "PrzeszkodaProstopadloscian.hh"
+#include "Dr3D_gnuplot_api.hh"
+
+using std::vector;
 
 class FactoryPrzeszkody {   
   public:
         FactoryPrzeszkody();
         FactoryPrzeszkody(std::shared_ptr<drawNS::Draw3DAPI> &api);
-        vector<PrzeszkodaProstopadloscian> dic1;
+        vector<std::shared_ptr<Przeszkoda>> dic1;
         // vector<Przeszkoda> dic;
 
         std::shared_ptr<drawNS::Draw3DAPI> api;
-        void rysuj();
-        bool wystapilaKolizja(InterfejsDron* dron);
+        void get_kolekcja(vector<std::shared_ptr<Przeszkoda>> &dic1);
 };
 
 

@@ -4,7 +4,6 @@
 #include<iostream>
 #include <math.h> 
 #include "Figura3D.hh"
-#include "MacierzObrotu.hh"
 
 class Graniastoslup : public Figura3D{    
   protected:

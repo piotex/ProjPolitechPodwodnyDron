@@ -1,6 +1,4 @@
 #include "MacierzObrotu.hh"
-#include "Wektor.hh"
-
 
 MacierzObrotu::MacierzObrotu(){
     for (int i = 0; i < 3; i++)

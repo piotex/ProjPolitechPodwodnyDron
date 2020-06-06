@@ -2,7 +2,6 @@
 #define FIGURA3D_HH
 
 #include<iostream>
-#include "Wektor.hh"
 #include "MacierzObrotu.hh"
 #include "Dr3D_gnuplot_api.hh"
 
@@ -58,6 +57,13 @@ class Figura3D {
     * \param wek - nowa wartosc srodka figury
     */ 
     virtual void set_pSrodka(const Wektor<double,3> &wek);
+    /*!
+    * \brief set_pSrodka() - funkcja sluzaca ustawieniu nowych wspolzednych srodka
+    * \param x - nowa wartosc x srodka figury
+    * \param y - nowa wartosc y srodka figury
+    * \param z - nowa wartosc z srodka figury
+    */ 
+    virtual void set_pSrodka(const double x, const double y, const double z);
     /*!
     * \brief sluzy do ustawienia nowej orientacji Figura3D
     * \param mac - nowa wartosc orientacji Figura3D

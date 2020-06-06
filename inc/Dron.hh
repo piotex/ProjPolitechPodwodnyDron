@@ -4,6 +4,7 @@
 #include "Sruba.hh"
 #include "Prostopadloscian.hh"
 #include "InterfejsDron.hh"
+#include "Przeszkoda.hh"
 
 /*!
 * \brief Dron - klasa reprezentujaca drona
@@ -38,22 +39,23 @@ class Dron : public Prostopadloscian, public InterfejsDron {
     * \brief rysuj() - funkcja sluzaca rysowania drona
     */ 
     void rysuj() override;
-    /*!
+ 
+    Wektor<double,3> get_srodek_masyDrona() override;
+    Wektor<double,3> get_wymiary_Drona() override;
+
+    void get_punktyKrytyczne(vector<Wektor<double,3>> &punkty) override;
+     /*!
     * \brief obrot() - funkcja sluzaca do obrotu drona wzgledem zadanej osi
     * \param typ - typ osi obrotu
     * \param kat - kat o jaki ma zostac wykonany obrot 
     */ 
-    void obrot(TypObrotu typ, double kat) override;
+    void obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp);
     /*!
     * \brief plyn() - funkcja sluzaca do zmiany polozenia drona
     * \param dyst - dystans jaki ma przebyc dron
     * \param kat - kat pod ktorym dron bedzie sie poruszal 
     */ 
-    void plyn(double dyst,double kat) override;
- 
-    Wektor<double,3> get_srodek_masyDrona() override;
-    Wektor<double,3> get_wymiary_Drona() override;
-
+    void plyn(double dyst,double kat,vector<std::shared_ptr<Przeszkoda>> fp);
 };
 
 #endif

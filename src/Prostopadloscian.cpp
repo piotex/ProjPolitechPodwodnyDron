@@ -37,7 +37,8 @@ void Prostopadloscian::get_wyliczonePunkty(Wektor<double,3> *ret){
   ret[7] = pSrodka + idn - bokY - bokZ;
 }
 void Prostopadloscian::rysuj() {
-    usunFigure();
+    if(id != 0)
+        usunFigure();
     Wektor<double,3> tab[8];
     get_wyliczonePunkty(tab);
     vector<vector<Point3D>> prost = vector<vector<Point3D>> {{

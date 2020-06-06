@@ -2,7 +2,6 @@
 #define SROBA_HH
 
 #include "Graniastoslup.hh"
-#include "MacierzObrotu.hh"
 
 class Sruba : public Graniastoslup{    
   protected:

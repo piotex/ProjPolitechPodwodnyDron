@@ -22,3 +22,7 @@ void Figura3D::get_zorientowanyWektor(Wektor<double,3> &wek) const{
 void Figura3D::set_api(std::shared_ptr<drawNS::Draw3DAPI> &_api){
     api = _api;
 }
+void Figura3D::set_pSrodka(const double x, const double y, const double z){
+    Wektor<double,3> wek(x,y,z);
+    pSrodka = wek;
+}

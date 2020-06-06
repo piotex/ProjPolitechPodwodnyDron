@@ -1,8 +1,4 @@
 #include "Dron.hh"
-#include "Graniastoslup.hh"
-#include "Sruba.hh"
-#include "PrzeszkodaProstopadloscian.hh"
-#include "InterfejsDron.hh"
 
 Dron::Dron(){
   predkosc = 5;
@@ -27,10 +23,17 @@ Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> osObroty,double kat)
     return ret;
 }
 
+void Dron::get_punktyKrytyczne(vector<Wektor<double,3>> &punkty){
+    Wektor<double,3> tab[8];
+    get_wyliczonePunkty(tab);
+    for (int i = 0; i < 8; i++)
+    {
+        punkty.push_back(tab[i]);
+    }
+    
+}
 
-
-
-void Dron::obrot(TypObrotu typ, double kat){
+void Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp){
   if (typ==OsZ)
   {
     double predkosc_lokal = 1 * ( kat / abs(kat) );
@@ -71,17 +74,17 @@ void Dron::obrot(TypObrotu typ, double kat){
 
 
 
-void Dron::plyn(double r,double kat){
+void Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
     double predkosc_lokal = 1 * ( r / abs(r) );
     r= abs(r);
 
     while (r>0)
     {
         Wektor<double,3> dyst(0,predkosc_lokal,0);
-        obrot(OsX,-kat); //zmiana wektora kierunkowego
+        obrot(OsX,-kat,fp); //zmiana wektora kierunkowego
         get_zorientowanyWektor(dyst);
         pSrodka = pSrodka + dyst;
-        obrot(OsX,kat); //powrot wektora kierunkowego
+        obrot(OsX,kat,fp); //powrot wektora kierunkowego
 
         g1.przesun(dyst);
         g2.przesun(dyst);

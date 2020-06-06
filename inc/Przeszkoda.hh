@@ -2,7 +2,6 @@
 #define PRZESZKODA_HH
 
 #include "InterfejsDron.hh"
-#include "Prostopadloscian.hh"
 
 class Przeszkoda {       //czy moze dziedziczyc po Figura3D ??? 
   protected:
