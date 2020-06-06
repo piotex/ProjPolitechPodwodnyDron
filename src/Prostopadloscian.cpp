@@ -16,7 +16,7 @@ Prostopadloscian::Prostopadloscian(std::shared_ptr<drawNS::Draw3DAPI> &_api, Wek
 
 void Prostopadloscian::get_wyliczonePunkty(Wektor<double,3> *ret){
 
-  Wektor<double,3> idn = orientacja * (dlugosciBokow/2);
+  Wektor<double,3> idn = orientacja * (dlugosciBokow/2);    // zorientowany wektor o dlugosci polowy kazdego boku - na jego podstawie okreslany jest pierwszy punkt a potem kolejna za pomoca dodania dlugosci odpowiednich bokow
 
   Wektor<double,3> bokX(dlugosciBokow[0],0,0);
   Wektor<double,3> bokY(0,dlugosciBokow[1],0);
@@ -26,7 +26,6 @@ void Prostopadloscian::get_wyliczonePunkty(Wektor<double,3> *ret){
   get_zorientowanyWektor(bokY);
   get_zorientowanyWektor(bokZ);
   
-  //ryzuje wzgledem pierwszego punktu zamiast srodka jak wczesniej 
   ret[0] = pSrodka + idn;
   ret[1] = pSrodka + idn - bokX;
   ret[2] = pSrodka + idn - bokX - bokY;

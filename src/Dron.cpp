@@ -25,14 +25,11 @@ Wektor<double,3> obrotZ(Wektor<double,3> a,Wektor<double,3> osObroty,double kat)
 
 void Dron::get_punktyKrytyczne(vector<Wektor<double,3>> &punkty){
     Wektor<double,3> tab[8];
-    // dlugosciBokow = dlugosciBokow + Wektor<double,3>(20,20,0);
     get_wyliczonePunkty(tab);
     for (int i = 0; i < 8; i++)
     {
       punkty.push_back(tab[i] );
     }
-    // dlugosciBokow = dlugosciBokow - Wektor<double,3>(20,20,0);
-    
 }
 
 int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp){
@@ -45,6 +42,7 @@ int Dron::obrot(TypObrotu typ, double kat,vector<std::shared_ptr<Przeszkoda>> fp
         for (int i = 0; i < fp.size(); i++)
         {
           if(fp[i]->czy_kolizja(this)){
+
             std::cout<<"\n\nwystapila kolizja\n\n";
             return 1;
           }
@@ -97,6 +95,8 @@ int Dron::plyn(double r,double kat,vector<std::shared_ptr<Przeszkoda>> fp){
         for (int i = 0; i < fp.size(); i++)
         {
           if(fp[i]->czy_kolizja(this)){
+
+
             std::cout<<"\n\nwystapila kolizja\n\n";
             return 1;
           }

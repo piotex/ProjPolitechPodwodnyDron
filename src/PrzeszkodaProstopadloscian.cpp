@@ -17,12 +17,37 @@ PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(std::shared_ptr<drawNS::D
 }
 
 bool PrzeszkodaProstopadloscian::czy_kolizja(InterfejsDron* dron){
-    // Wektor<double,3> w1 = (*dron).get_srodek_masyDrona();
-    // Wektor<double,3> w2 = pSrodka;
-    // if (w1 == w2)
-    // {
-    //     // return true;
-    // }
+    vector<Wektor<double,3>> punkty;
+    dron->get_punktyKrytyczne(punkty);
+
+    double x1 = pSrodka[0] + (dlugosciBokow[0]/2);
+    double x2 = pSrodka[0] - (dlugosciBokow[0]/2);
+    double y1 = pSrodka[1] + (dlugosciBokow[1]/2);
+    double y2 = pSrodka[1] - (dlugosciBokow[1]/2);
+    double z1 = pSrodka[2] + (dlugosciBokow[2]/2);
+    double z2 = pSrodka[2] - (dlugosciBokow[2]/2);
+    bool okx = false;
+    bool oky = false;
+    bool okz = false;
+    for (int i = 0; i < 8; i++)
+    {
+        if (punkty[i][0] > x2 && punkty[i][0] < x1)
+        {
+            okx = true;
+        }
+        if (punkty[i][1] > y2 && punkty[i][1] < y1)
+        {
+            oky = true;
+        }
+        if (punkty[i][2] > z2 && punkty[i][2] < z1)
+        {
+            okz = true;
+        }
+    }
+    if(okz && okx && oky){
+        return true;
+    }
+
     return false;
     
 }

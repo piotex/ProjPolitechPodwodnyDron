@@ -35,33 +35,72 @@ bool PrzeszkodaPrent::czy_kolizja(InterfejsDron* dron){
     dron->get_punktyKrytyczne(punkty);
     if (os == OsX)
     {
-        if (punkty[0][2] > pSrodka[2] && punkty[4][2] < pSrodka[2])
+        double x1 = pSrodka[0] + dlugosc;
+        double x2 = pSrodka[0] - dlugosc;
+        bool ok = false;
+        for (int i = 0; i < 8; i++)
         {
-            if( (punkty[0][1] >  pSrodka[1] && punkty[3][1] < pSrodka[1]) || (punkty[2][1] >  pSrodka[1] && punkty[1][1] < pSrodka[1]) )
+            if (punkty[i][0] > x2 && punkty[i][0] < x1)
             {
-                double x1 = pSrodka[0] + dlugosc;
-                double x2 = pSrodka[0] - dlugosc;
-                    return true;
+                ok = true;
             }
-        } 
+        }
+        if (ok)
+        {
+            if (punkty[0][2] > pSrodka[2] && punkty[4][2] < pSrodka[2])
+            {
+                if( (punkty[0][1] >  pSrodka[1] && punkty[3][1] < pSrodka[1]) || (punkty[2][1] >  pSrodka[1] && punkty[1][1] < pSrodka[1]) )
+                {
+                    double x1 = pSrodka[0] + dlugosc;
+                    double x2 = pSrodka[0] - dlugosc;
+                        return true;
+                }
+            } 
+        }
     }
     if (os == OsY)
     {
-        if (punkty[0][2] > pSrodka[2] && punkty[4][2] < pSrodka[2])
+        double x1 = pSrodka[1] + dlugosc;
+        double x2 = pSrodka[1] - dlugosc;
+        bool ok = false;
+        for (int i = 0; i < 8; i++)
         {
-            if( (punkty[0][0] >  pSrodka[0] && punkty[1][0] < pSrodka[0]) || (punkty[2][0] >  pSrodka[0] && punkty[3][0] < pSrodka[0]) )
+            if (punkty[i][1] > x2 && punkty[i][1] < x1)
             {
-                    return true;
+                ok = true;
             }
-        }   
+        }
+        if (ok)
+        {
+           if (punkty[0][2] > pSrodka[2] && punkty[4][2] < pSrodka[2])
+            {
+                if( (punkty[0][0] >  pSrodka[0] && punkty[1][0] < pSrodka[0]) || (punkty[2][0] >  pSrodka[0] && punkty[3][0] < pSrodka[0]) )
+                {
+                    return true;
+                }
+            }   
+        }
     }
     if (os == OsZ)
     {
-        if( (punkty[0][1] >  pSrodka[1] && punkty[3][1] < pSrodka[1]) || (punkty[2][1] >  pSrodka[1] && punkty[1][1] < pSrodka[1]) )
+        double x1 = pSrodka[2] + dlugosc;
+        double x2 = pSrodka[2] - dlugosc;
+        bool ok = false;
+        for (int i = 0; i < 8; i++)
         {
-            if( (punkty[0][0] >  pSrodka[0] && punkty[1][0] < pSrodka[0]) || (punkty[2][0] >  pSrodka[0] && punkty[3][0] < pSrodka[0]) )
+            if (punkty[i][2] > x2 && punkty[i][2] < x1)
             {
-                    return true;
+                ok = true;
+            }
+        }
+        if (ok)
+        {
+            if( (punkty[0][1] >  pSrodka[1] && punkty[3][1] < pSrodka[1]) || (punkty[2][1] >  pSrodka[1] && punkty[1][1] < pSrodka[1]) )
+            {
+                if( (punkty[0][0] >  pSrodka[0] && punkty[1][0] < pSrodka[0]) || (punkty[2][0] >  pSrodka[0] && punkty[3][0] < pSrodka[0]) )
+                {
+                        return true;
+                }
             }
         }
     }
