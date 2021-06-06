@@ -33,10 +33,11 @@ void Prostopadloscian::get_wyliczonePunkty(Wektor<double,3> *ret){
   ret[1] = pSrodka + idn - bokX;
   ret[2] = pSrodka + idn - bokX - bokY;
   ret[3] = pSrodka + idn - bokY;
+
   ret[4] = pSrodka + idn - bokZ;
-  ret[5] = pSrodka + idn - bokX - bokZ;
-  ret[6] = pSrodka + idn - bokY - bokZ - bokX;
-  ret[7] = pSrodka + idn - bokY - bokZ;
+  ret[5] = pSrodka + idn - bokZ - bokX;
+  ret[6] = pSrodka + idn - bokZ - bokX - bokY;
+  ret[7] = pSrodka + idn - bokZ - bokY;
 }
 void Prostopadloscian::rysuj() {
     std::string col = "black";
